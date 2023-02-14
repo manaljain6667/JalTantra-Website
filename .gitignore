@@ -1,0 +1,18 @@
+bin/
+
+*.xls
+*.log
+*.osil
+opfile*
+#op*
+
+# Mac specific
+__MACOSX/
+*.DS_Store
+
+# Eclipse specific git ignore
+.settings/
+.classpath
+.loadpath
+
+classes/

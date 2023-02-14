@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+  <name>Khardi</name>
+  <version>2.2.2.0</version>
+  <nodes>
+    <defaultMinPressure>7.0</defaultMinPressure>
+    <supplyHours>12.0</supplyHours>
+    <source elevation="366.0" head="366.0" nodeID="1" nodeName="source"/>
+    <node demand="1.16" elevation="301.0" nodeID="2" nodeName=""/>
+    <node demand="2.47" elevation="346.0" nodeID="6" nodeName=""/>
+    <node elevation="328.0" nodeID="4" nodeName=""/>
+    <node demand="93.05" elevation="263.0" nodeID="10" nodeName=""/>
+    <node elevation="309.0" nodeID="3" nodeName=""/>
+    <node elevation="250.0" nodeID="7" nodeName=""/>
+    <node elevation="239.0" nodeID="8" nodeName=""/>
+    <node elevation="240.0" nodeID="9" nodeName=""/>
+    <node elevation="331.0" nodeID="5" nodeName=""/>
+    <node elevation="342.0" nodeID="11" nodeName=""/>
+  </nodes>
+  <pipes>
+    <defaultRoughness>140.0</defaultRoughness>
+    <minHeadLossPerKM>0.0</minHeadLossPerKM>
+    <maxHeadLossPerKM>100.0</maxHeadLossPerKM>
+    <pipe endNode="2" length="1561.0" pipeID="1" startNode="11"/>
+    <pipe endNode="3" length="976.0" pipeID="2" startNode="11"/>
+    <pipe endNode="4" length="1063.0" pipeID="3" startNode="3"/>
+    <pipe endNode="5" length="880.0" pipeID="4" startNode="4"/>
+    <pipe endNode="6" length="187.0" pipeID="5" startNode="5"/>
+    <pipe endNode="7" length="2730.0" pipeID="6" startNode="5"/>
+    <pipe endNode="8" length="1377.0" pipeID="7" startNode="7"/>
+    <pipe endNode="9" length="2309.0" pipeID="8" startNode="8"/>
+    <pipe endNode="10" length="2037.0" pipeID="9" startNode="9"/>
+    <pipe endNode="11" length="14.0" pipeID="10" startNode="1"/>
+  </pipes>
+  <pipeCosts>
+    <pipeCost cost="116.0" diameter="63.0"/>
+    <pipeCost cost="172.0" diameter="75.0"/>
+    <pipeCost cost="231.0" diameter="90.0"/>
+    <pipeCost cost="340.0" diameter="110.0"/>
+    <pipeCost cost="461.0" diameter="125.0"/>
+    <pipeCost cost="576.0" diameter="140.0"/>
+    <pipeCost cost="750.0" diameter="160.0"/>
+    <pipeCost cost="945.0" diameter="180.0"/>
+    <pipeCost cost="1113.0" diameter="200.0"/>
+    <pipeCost cost="1430.0" diameter="225.0"/>
+    <pipeCost cost="1762.0" diameter="250.0"/>
+    <pipeCost cost="2210.0" diameter="280.0"/>
+    <pipeCost cost="2794.0" diameter="315.0"/>
+    <pipeCost cost="3537.0" diameter="355.0"/>
+    <pipeCost cost="4645.0" diameter="400.0"/>
+    <pipeCost cost="6212.0" diameter="450.0"/>
+    <pipeCost cost="7663.0" diameter="500.0"/>
+    <pipeCost cost="9618.0" diameter="560.0"/>
+    <pipeCost cost="12109.0" diameter="630.0"/>
+    <pipeCost cost="15344.0" diameter="710.0"/>
+  </pipeCosts>
+  <esr>
+    <esr_enabled>false</esr_enabled>
+    <secondary_supply_hours>12.0</secondary_supply_hours>
+    <esr_capacity_factor>0.5</esr_capacity_factor>
+    <max_esr_height>25.0</max_esr_height>
+    <allow_dummy>true</allow_dummy>
+    <must_esrs/>
+    <must_not_esrs>
+      <must_not_esr>2</must_not_esr>
+      <must_not_esr>6</must_not_esr>
+      <must_not_esr>5</must_not_esr>
+    </must_not_esrs>
+    <esr_costs>
+      <esr_cost basecost="0.0" maxcapacity="25000.0" mincapacity="0.0" unitcost="24.47"/>
+      <esr_cost basecost="611750.0" maxcapacity="50000.0" mincapacity="25000.0" unitcost="12.96"/>
+      <esr_cost basecost="935750.0" maxcapacity="75000.0" mincapacity="50000.0" unitcost="9.64"/>
+      <esr_cost basecost="1176750.0" maxcapacity="100000.0" mincapacity="75000.0" unitcost="8.64"/>
+      <esr_cost basecost="1392750.0" maxcapacity="150000.0" mincapacity="100000.0" unitcost="7.23"/>
+      <esr_cost basecost="1754250.0" maxcapacity="200000.0" mincapacity="150000.0" unitcost="6.03"/>
+      <esr_cost basecost="2055750.0" maxcapacity="300000.0" mincapacity="200000.0" unitcost="5.4"/>
+      <esr_cost basecost="2595750.0" maxcapacity="400000.0" mincapacity="300000.0" unitcost="5.12"/>
+      <esr_cost basecost="3107750.0" maxcapacity="1500000.0" mincapacity="400000.0" unitcost="4.32"/>
+      <esr_cost basecost="7859750.0" maxcapacity="5000000.0" mincapacity="1500000.0" unitcost="3.92"/>
+    </esr_costs>
+  </esr>
+  <pump>
+    <pump_enabled>false</pump_enabled>
+    <minimum_pump_size>1.0</minimum_pump_size>
+    <pump_efficiency>70.0</pump_efficiency>
+    <capital_cost_per_kw>30000.0</capital_cost_per_kw>
+    <energy_cost_per_kwh>6.5</energy_cost_per_kwh>
+    <design_lifetime>15</design_lifetime>
+    <discount_rate>7.0</discount_rate>
+    <inflation_rate>5.0</inflation_rate>
+    <pipes_without_pumps/>
+    <manual_pumps/>
+  </pump>
+  <map>
+    <map_source_node nodeid=""/>
+    <map_nodes/>
+    <map_pipes/>
+  </map>
+</root>

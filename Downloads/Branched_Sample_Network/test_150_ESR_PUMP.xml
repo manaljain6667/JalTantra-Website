@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+  <nodes>
+    <name>150</name>
+	<defaultMinPressure>7</defaultMinPressure>
+	<supplyHours>24.0</supplyHours>
+    <source elevation="320.0" head="320.0" nodeID="1" nodeName="a"/>
+<node demand="2.39" elevation="244" nodeID="2"/>
+<node demand="0.02" elevation="144" nodeID="3"/>
+<node demand="3.66" elevation="283" nodeID="4"/>
+<node demand="0.00" elevation="277" nodeID="5"/>
+<node demand="0.00" elevation="197" nodeID="6"/>
+<node demand="0.00" elevation="145" nodeID="7"/>
+<node demand="0.13" elevation="230" nodeID="8"/>
+<node demand="0.00" elevation="290" nodeID="9"/>
+<node demand="1.65" elevation="165" nodeID="10"/>
+<node demand="0.00" elevation="216" nodeID="11"/>
+<node demand="2.60" elevation="237" nodeID="12"/>
+<node demand="1.72" elevation="266" nodeID="13"/>
+<node demand="0.00" elevation="217" nodeID="14"/>
+<node demand="0.00" elevation="191" nodeID="15"/>
+<node demand="4.98" elevation="252" nodeID="16"/>
+<node demand="0.00" elevation="184" nodeID="17"/>
+<node demand="0.24" elevation="125" nodeID="18"/>
+<node demand="0.27" elevation="217" nodeID="19"/>
+<node demand="4.71" elevation="156" nodeID="20"/>
+<node demand="0.00" elevation="115" nodeID="21"/>
+<node demand="4.50" elevation="211" nodeID="22"/>
+<node demand="0.00" elevation="202" nodeID="23"/>
+<node demand="0.56" elevation="264" nodeID="24"/>
+<node demand="1.32" elevation="228" nodeID="25"/>
+<node demand="0.00" elevation="264" nodeID="26"/>
+<node demand="4.19" elevation="269" nodeID="27"/>
+<node demand="0.00" elevation="287" nodeID="28"/>
+<node demand="0.31" elevation="270" nodeID="29"/>
+<node demand="0.00" elevation="139" nodeID="30"/>
+<node demand="0.00" elevation="188" nodeID="31"/>
+<node demand="1.42" elevation="134" nodeID="32"/>
+<node demand="1.01" elevation="234" nodeID="33"/>
+<node demand="4.47" elevation="240" nodeID="34"/>
+<node demand="0.00" elevation="165" nodeID="35"/>
+<node demand="0.72" elevation="113" nodeID="36"/>
+<node demand="2.90" elevation="298" nodeID="37"/>
+<node demand="0.00" elevation="229" nodeID="38"/>
+<node demand="4.70" elevation="258" nodeID="39"/>
+<node demand="0.00" elevation="277" nodeID="40"/>
+<node demand="0.00" elevation="251" nodeID="41"/>
+<node demand="0.00" elevation="175" nodeID="42"/>
+<node demand="4.45" elevation="157" nodeID="43"/>
+<node demand="0.63" elevation="256" nodeID="44"/>
+<node demand="0.00" elevation="112" nodeID="45"/>
+<node demand="0.00" elevation="122" nodeID="46"/>
+<node demand="1.05" elevation="171" nodeID="47"/>
+<node demand="4.79" elevation="286" nodeID="48"/>
+<node demand="1.54" elevation="220" nodeID="49"/>
+<node demand="3.20" elevation="196" nodeID="50"/>
+<node demand="0.61" elevation="285" nodeID="51"/>
+<node demand="1.52" elevation="287" nodeID="52"/>
+<node demand="1.68" elevation="241" nodeID="53"/>
+<node demand="0.36" elevation="192" nodeID="54"/>
+<node demand="2.28" elevation="231" nodeID="55"/>
+<node demand="1.50" elevation="191" nodeID="56"/>
+<node demand="2.62" elevation="158" nodeID="57"/>
+<node demand="0.96" elevation="188" nodeID="58"/>
+<node demand="4.60" elevation="246" nodeID="59"/>
+<node demand="0.41" elevation="139" nodeID="60"/>
+<node demand="2.41" elevation="225" nodeID="61"/>
+<node demand="3.61" elevation="287" nodeID="62"/>
+<node demand="2.84" elevation="114" nodeID="63"/>
+<node demand="0.19" elevation="183" nodeID="64"/>
+<node demand="2.06" elevation="145" nodeID="65"/>
+<node demand="1.45" elevation="175" nodeID="66"/>
+<node demand="1.06" elevation="122" nodeID="67"/>
+<node demand="3.35" elevation="152" nodeID="68"/>
+<node demand="0.75" elevation="191" nodeID="69"/>
+<node demand="0.57" elevation="150" nodeID="70"/>
+<node demand="4.75" elevation="178" nodeID="71"/>
+<node demand="1.79" elevation="218" nodeID="72"/>
+<node demand="4.08" elevation="294" nodeID="73"/>
+<node demand="2.29" elevation="246" nodeID="74"/>
+<node demand="4.72" elevation="280" nodeID="75"/>
+<node demand="5.00" elevation="261" nodeID="76"/>
+<node demand="4.19" elevation="278" nodeID="77"/>
+<node demand="0.86" elevation="297" nodeID="78"/>
+<node demand="4.86" elevation="104" nodeID="79"/>
+<node demand="1.15" elevation="222" nodeID="80"/>
+<node demand="3.96" elevation="110" nodeID="81"/>
+<node demand="0.65" elevation="199" nodeID="82"/>
+<node demand="4.36" elevation="268" nodeID="83"/>
+<node demand="3.11" elevation="132" nodeID="84"/>
+<node demand="1.59" elevation="160" nodeID="85"/>
+<node demand="0.07" elevation="172" nodeID="86"/>
+<node demand="2.56" elevation="140" nodeID="87"/>
+<node demand="4.73" elevation="171" nodeID="88"/>
+<node demand="0.87" elevation="195" nodeID="89"/>
+<node demand="3.38" elevation="227" nodeID="90"/>
+<node demand="3.07" elevation="298" nodeID="91"/>
+<node demand="2.24" elevation="178" nodeID="92"/>
+<node demand="0.01" elevation="183" nodeID="93"/>
+<node demand="2.55" elevation="129" nodeID="94"/>
+<node demand="1.07" elevation="218" nodeID="95"/>
+<node demand="2.83" elevation="105" nodeID="96"/>
+<node demand="1.67" elevation="218" nodeID="97"/>
+<node demand="4.55" elevation="271" nodeID="98"/>
+<node demand="4.58" elevation="253" nodeID="99"/>
+<node demand="1.39" elevation="151" nodeID="100"/>
+<node demand="0.13" elevation="188" nodeID="101"/>
+<node demand="1.50" elevation="288" nodeID="102"/>
+<node demand="2.07" elevation="285" nodeID="103"/>
+<node demand="2.33" elevation="113" nodeID="104"/>
+<node demand="1.75" elevation="203" nodeID="105"/>
+<node demand="4.72" elevation="170" nodeID="106"/>
+<node demand="0.07" elevation="276" nodeID="107"/>
+<node demand="3.77" elevation="119" nodeID="108"/>
+<node demand="1.74" elevation="139" nodeID="109"/>
+<node demand="3.33" elevation="115" nodeID="110"/>
+<node demand="4.29" elevation="268" nodeID="111"/>
+<node demand="1.23" elevation="297" nodeID="112"/>
+<node demand="1.52" elevation="278" nodeID="113"/>
+<node demand="1.00" elevation="295" nodeID="114"/>
+<node demand="0.53" elevation="270" nodeID="115"/>
+<node demand="4.61" elevation="256" nodeID="116"/>
+<node demand="1.09" elevation="299" nodeID="117"/>
+<node demand="3.45" elevation="107" nodeID="118"/>
+<node demand="1.70" elevation="212" nodeID="119"/>
+<node demand="3.40" elevation="181" nodeID="120"/>
+<node demand="0.05" elevation="140" nodeID="121"/>
+<node demand="4.62" elevation="159" nodeID="122"/>
+<node demand="1.45" elevation="160" nodeID="123"/>
+<node demand="1.52" elevation="254" nodeID="124"/>
+<node demand="1.97" elevation="230" nodeID="125"/>
+<node demand="4.74" elevation="148" nodeID="126"/>
+<node demand="4.70" elevation="285" nodeID="127"/>
+<node demand="0.78" elevation="261" nodeID="128"/>
+<node demand="2.95" elevation="288" nodeID="129"/>
+<node demand="3.45" elevation="282" nodeID="130"/>
+<node demand="4.83" elevation="241" nodeID="131"/>
+<node demand="4.96" elevation="202" nodeID="132"/>
+<node demand="0.42" elevation="180" nodeID="133"/>
+<node demand="1.95" elevation="245" nodeID="134"/>
+<node demand="3.83" elevation="251" nodeID="135"/>
+<node demand="2.98" elevation="282" nodeID="136"/>
+<node demand="1.94" elevation="296" nodeID="137"/>
+<node demand="2.04" elevation="168" nodeID="138"/>
+<node demand="1.38" elevation="226" nodeID="139"/>
+<node demand="2.39" elevation="123" nodeID="140"/>
+<node demand="0.88" elevation="182" nodeID="141"/>
+<node demand="0.65" elevation="240" nodeID="142"/>
+<node demand="0.31" elevation="202" nodeID="143"/>
+<node demand="1.73" elevation="108" nodeID="144"/>
+<node demand="1.53" elevation="196" nodeID="145"/>
+<node demand="3.09" elevation="220" nodeID="146"/>
+<node demand="0.89" elevation="181" nodeID="147"/>
+<node demand="2.50" elevation="123" nodeID="148"/>
+<node demand="3.85" elevation="213" nodeID="149"/>
+<node demand="0.03" elevation="161" nodeID="150"/>
+  </nodes>
+  <pipes>
+    <defaultRoughness>140.0</defaultRoughness>
+	<minHeadLossPerKM>0</minHeadLossPerKM>
+    <maxHeadLossPerKM>50.0</maxHeadLossPerKM>
+    <pipe startNode="1" endNode="2" length="4288"/>
+<pipe startNode="2" endNode="3" length="4484"/>
+<pipe startNode="2" endNode="4" length="3585"/>
+<pipe startNode="2" endNode="5" length="2726"/>
+<pipe startNode="2" endNode="6" length="2138"/>
+<pipe startNode="2" endNode="7" length="541"/>
+<pipe startNode="2" endNode="8" length="4933"/>
+<pipe startNode="3" endNode="9" length="4798"/>
+<pipe startNode="3" endNode="10" length="759"/>
+<pipe startNode="3" endNode="11" length="4245"/>
+<pipe startNode="3" endNode="12" length="4223"/>
+<pipe startNode="4" endNode="13" length="4788"/>
+<pipe startNode="4" endNode="14" length="1954"/>
+<pipe startNode="4" endNode="15" length="1064"/>
+<pipe startNode="4" endNode="16" length="4143"/>
+<pipe startNode="5" endNode="17" length="998"/>
+<pipe startNode="5" endNode="18" length="3772"/>
+<pipe startNode="5" endNode="19" length="1642"/>
+<pipe startNode="6" endNode="20" length="4046"/>
+<pipe startNode="6" endNode="21" length="3862"/>
+<pipe startNode="6" endNode="22" length="4353"/>
+<pipe startNode="6" endNode="23" length="4463"/>
+<pipe startNode="7" endNode="24" length="2378"/>
+<pipe startNode="7" endNode="25" length="1379"/>
+<pipe startNode="7" endNode="26" length="2946"/>
+<pipe startNode="7" endNode="27" length="1080"/>
+<pipe startNode="7" endNode="28" length="589"/>
+<pipe startNode="8" endNode="29" length="3832"/>
+<pipe startNode="8" endNode="30" length="556"/>
+<pipe startNode="8" endNode="31" length="1245"/>
+<pipe startNode="8" endNode="32" length="1954"/>
+<pipe startNode="8" endNode="33" length="3954"/>
+<pipe startNode="9" endNode="34" length="519"/>
+<pipe startNode="9" endNode="35" length="1695"/>
+<pipe startNode="9" endNode="36" length="4633"/>
+<pipe startNode="9" endNode="37" length="1124"/>
+<pipe startNode="9" endNode="38" length="4356"/>
+<pipe startNode="10" endNode="39" length="1920"/>
+<pipe startNode="10" endNode="40" length="2352"/>
+<pipe startNode="10" endNode="41" length="4175"/>
+<pipe startNode="10" endNode="42" length="3822"/>
+<pipe startNode="10" endNode="43" length="1632"/>
+<pipe startNode="11" endNode="44" length="4536"/>
+<pipe startNode="11" endNode="45" length="1974"/>
+<pipe startNode="11" endNode="46" length="813"/>
+<pipe startNode="11" endNode="47" length="2029"/>
+<pipe startNode="11" endNode="48" length="4153"/>
+<pipe startNode="12" endNode="49" length="4963"/>
+<pipe startNode="12" endNode="50" length="1337"/>
+<pipe startNode="13" endNode="51" length="1543"/>
+<pipe startNode="13" endNode="52" length="1058"/>
+<pipe startNode="13" endNode="53" length="1312"/>
+<pipe startNode="13" endNode="54" length="1994"/>
+<pipe startNode="14" endNode="55" length="1803"/>
+<pipe startNode="14" endNode="56" length="1878"/>
+<pipe startNode="14" endNode="57" length="4301"/>
+<pipe startNode="15" endNode="58" length="2043"/>
+<pipe startNode="15" endNode="59" length="4275"/>
+<pipe startNode="15" endNode="60" length="3006"/>
+<pipe startNode="16" endNode="61" length="951"/>
+<pipe startNode="16" endNode="62" length="3300"/>
+<pipe startNode="17" endNode="63" length="999"/>
+<pipe startNode="18" endNode="64" length="528"/>
+<pipe startNode="18" endNode="65" length="2515"/>
+<pipe startNode="18" endNode="66" length="1010"/>
+<pipe startNode="18" endNode="67" length="1700"/>
+<pipe startNode="18" endNode="68" length="4399"/>
+<pipe startNode="19" endNode="69" length="4670"/>
+<pipe startNode="19" endNode="70" length="1957"/>
+<pipe startNode="19" endNode="71" length="4054"/>
+<pipe startNode="20" endNode="72" length="2771"/>
+<pipe startNode="20" endNode="73" length="4321"/>
+<pipe startNode="21" endNode="74" length="2946"/>
+<pipe startNode="21" endNode="75" length="3634"/>
+<pipe startNode="22" endNode="76" length="1610"/>
+<pipe startNode="22" endNode="77" length="3976"/>
+<pipe startNode="22" endNode="78" length="2553"/>
+<pipe startNode="22" endNode="79" length="1987"/>
+<pipe startNode="23" endNode="80" length="3969"/>
+<pipe startNode="23" endNode="81" length="4827"/>
+<pipe startNode="24" endNode="82" length="3793"/>
+<pipe startNode="25" endNode="83" length="2660"/>
+<pipe startNode="25" endNode="84" length="1241"/>
+<pipe startNode="26" endNode="85" length="3007"/>
+<pipe startNode="26" endNode="86" length="4341"/>
+<pipe startNode="26" endNode="87" length="3131"/>
+<pipe startNode="27" endNode="88" length="1299"/>
+<pipe startNode="27" endNode="89" length="1546"/>
+<pipe startNode="28" endNode="90" length="1966"/>
+<pipe startNode="28" endNode="91" length="4199"/>
+<pipe startNode="28" endNode="92" length="1456"/>
+<pipe startNode="28" endNode="93" length="2100"/>
+<pipe startNode="29" endNode="94" length="1916"/>
+<pipe startNode="30" endNode="95" length="4893"/>
+<pipe startNode="30" endNode="96" length="4483"/>
+<pipe startNode="30" endNode="97" length="3551"/>
+<pipe startNode="30" endNode="98" length="1875"/>
+<pipe startNode="30" endNode="99" length="1165"/>
+<pipe startNode="31" endNode="100" length="2280"/>
+<pipe startNode="31" endNode="101" length="2839"/>
+<pipe startNode="31" endNode="102" length="2959"/>
+<pipe startNode="31" endNode="103" length="978"/>
+<pipe startNode="32" endNode="104" length="4336"/>
+<pipe startNode="32" endNode="105" length="2074"/>
+<pipe startNode="33" endNode="106" length="4124"/>
+<pipe startNode="33" endNode="107" length="3650"/>
+<pipe startNode="33" endNode="108" length="3250"/>
+<pipe startNode="34" endNode="109" length="4944"/>
+<pipe startNode="34" endNode="110" length="1537"/>
+<pipe startNode="35" endNode="111" length="1711"/>
+<pipe startNode="35" endNode="112" length="1545"/>
+<pipe startNode="35" endNode="113" length="1973"/>
+<pipe startNode="36" endNode="114" length="943"/>
+<pipe startNode="36" endNode="115" length="3039"/>
+<pipe startNode="36" endNode="116" length="2801"/>
+<pipe startNode="36" endNode="117" length="1578"/>
+<pipe startNode="36" endNode="118" length="3380"/>
+<pipe startNode="37" endNode="119" length="3747"/>
+<pipe startNode="37" endNode="120" length="4021"/>
+<pipe startNode="38" endNode="121" length="2102"/>
+<pipe startNode="38" endNode="122" length="655"/>
+<pipe startNode="39" endNode="123" length="3500"/>
+<pipe startNode="40" endNode="124" length="1421"/>
+<pipe startNode="40" endNode="125" length="4708"/>
+<pipe startNode="40" endNode="126" length="2143"/>
+<pipe startNode="41" endNode="127" length="3159"/>
+<pipe startNode="41" endNode="128" length="1343"/>
+<pipe startNode="41" endNode="129" length="2050"/>
+<pipe startNode="42" endNode="130" length="1049"/>
+<pipe startNode="42" endNode="131" length="4391"/>
+<pipe startNode="42" endNode="132" length="2389"/>
+<pipe startNode="42" endNode="133" length="2378"/>
+<pipe startNode="43" endNode="134" length="3744"/>
+<pipe startNode="43" endNode="135" length="4617"/>
+<pipe startNode="43" endNode="136" length="3550"/>
+<pipe startNode="43" endNode="137" length="1914"/>
+<pipe startNode="43" endNode="138" length="2574"/>
+<pipe startNode="44" endNode="139" length="638"/>
+<pipe startNode="44" endNode="140" length="2366"/>
+<pipe startNode="44" endNode="141" length="4279"/>
+<pipe startNode="44" endNode="142" length="1747"/>
+<pipe startNode="44" endNode="143" length="4339"/>
+<pipe startNode="45" endNode="144" length="934"/>
+<pipe startNode="45" endNode="145" length="1925"/>
+<pipe startNode="45" endNode="146" length="582"/>
+<pipe startNode="45" endNode="147" length="2310"/>
+<pipe startNode="45" endNode="148" length="1527"/>
+<pipe startNode="46" endNode="149" length="1579"/>
+<pipe startNode="46" endNode="150" length="1190"/>
+  </pipes>
+  <pipeCosts>
+    <pipeCost cost="576.0" diameter="140"/>
+    <pipeCost cost="1113.0" diameter="200"/>
+    <pipeCost cost="340.0" diameter="110"/>
+    <pipeCost cost="2794.0" diameter="315"/>
+    <pipeCost cost="750.0" diameter="160"/>
+    <pipeCost cost="2210.0" diameter="280"/>
+    <pipeCost cost="1430.0" diameter="225"/>
+    <pipeCost cost="172.0" diameter="75"/>
+    <pipeCost cost="1762.0" diameter="250"/>
+    <pipeCost cost="461.0" diameter="125"/>
+    <pipeCost cost="116.0" diameter="63"/>
+    <pipeCost cost="945.0" diameter="180"/>
+    <pipeCost cost="231.0" diameter="90"/>
+    <pipeCost cost="3537.0" diameter="355.0"/>
+    <pipeCost cost="4645.0" diameter="400.0"/>
+    <pipeCost cost="6212.0" diameter="450.0"/>
+    <pipeCost cost="7663.0" diameter="500.0"/>
+    <pipeCost cost="9618.0" diameter="560.0"/>
+    <pipeCost cost="12109.0" diameter="630.0"/>
+    <pipeCost cost="15344.0" diameter="710.0"/>
+  </pipeCosts>
+  <esr>
+    <esr_enabled>true</esr_enabled>
+    <secondary_supply_hours>12.0</secondary_supply_hours>
+    <esr_capacity_factor>0.5</esr_capacity_factor>
+    <max_esr_height>25.0</max_esr_height>
+    <allow_dummy>true</allow_dummy>
+    <must_esrs/>
+    <must_not_esrs/>
+    <esr_costs>
+      <esr_cost basecost="0.0" maxcapacity="25000.0" mincapacity="0.0" unitcost="24.47"/>
+      <esr_cost basecost="611750.0" maxcapacity="50000.0" mincapacity="25000.0" unitcost="12.96"/>
+      <esr_cost basecost="935750.0" maxcapacity="75000.0" mincapacity="50000.0" unitcost="9.64"/>
+      <esr_cost basecost="1176750.0" maxcapacity="100000.0" mincapacity="75000.0" unitcost="8.64"/>
+      <esr_cost basecost="1392750.0" maxcapacity="150000.0" mincapacity="100000.0" unitcost="7.23"/>
+      <esr_cost basecost="1754250.0" maxcapacity="200000.0" mincapacity="150000.0" unitcost="6.03"/>
+      <esr_cost basecost="2055750.0" maxcapacity="300000.0" mincapacity="200000.0" unitcost="5.4"/>
+      <esr_cost basecost="2595750.0" maxcapacity="400000.0" mincapacity="300000.0" unitcost="5.12"/>
+      <esr_cost basecost="3107750.0" maxcapacity="1500000.0" mincapacity="400000.0" unitcost="4.32"/>
+      <esr_cost basecost="7859750.0" maxcapacity="250000000.0" mincapacity="1500000.0" unitcost="3.92"/>
+    </esr_costs>
+  </esr>
+  <pump>
+    <pump_enabled>true</pump_enabled>
+    <minimum_pump_size>1.0</minimum_pump_size>
+    <pump_efficiency>70.0</pump_efficiency>
+    <capital_cost_per_kw>30000.0</capital_cost_per_kw>
+    <energy_cost_per_kwh>6.5</energy_cost_per_kwh>
+    <design_lifetime>15</design_lifetime>
+    <discount_rate>7.0</discount_rate>
+    <inflation_rate>5.0</inflation_rate>
+    <manual_pumps/>
+  </pump>
+</root>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<root>
+  <name>50</name>
+  <version>2.2.2.0</version>
+  <nodes>
+    <defaultMinPressure>7.0</defaultMinPressure>
+    <supplyHours>24.0</supplyHours>
+    <source elevation="320.0" head="320.0" nodeID="1" nodeName="a"/>
+    <node demand="0.00" elevation="231" nodeID="2"/>
+	<node demand="0.00" elevation="263" nodeID="3"/>
+	<node demand="0.73" elevation="297" nodeID="4"/>
+	<node demand="0.00" elevation="181" nodeID="5"/>
+	<node demand="0.00" elevation="163" nodeID="6"/>
+	<node demand="3.06" elevation="229" nodeID="7"/>
+	<node demand="0.00" elevation="184" nodeID="8"/>
+	<node demand="1.96" elevation="174" nodeID="9"/>
+	<node demand="3.01" elevation="261" nodeID="10"/>
+	<node demand="2.21" elevation="209" nodeID="11"/>
+	<node demand="0.00" elevation="156" nodeID="12"/>
+	<node demand="4.35" elevation="138" nodeID="13"/>
+	<node demand="0.00" elevation="130" nodeID="14"/>
+	<node demand="0.79" elevation="231" nodeID="15"/>
+	<node demand="0.00" elevation="111" nodeID="16"/>
+	<node demand="2.82" elevation="289" nodeID="17"/>
+	<node demand="3.13" elevation="299" nodeID="18"/>
+	<node demand="3.39" elevation="130" nodeID="19"/>
+	<node demand="2.30" elevation="226" nodeID="20"/>
+	<node demand="1.72" elevation="171" nodeID="21"/>
+	<node demand="1.71" elevation="256" nodeID="22"/>
+	<node demand="3.05" elevation="164" nodeID="23"/>
+	<node demand="2.07" elevation="209" nodeID="24"/>
+	<node demand="4.44" elevation="212" nodeID="25"/>
+	<node demand="1.45" elevation="142" nodeID="26"/>
+	<node demand="0.05" elevation="258" nodeID="27"/>
+	<node demand="5.68" elevation="173" nodeID="28"/>
+	<node demand="0.07" elevation="130" nodeID="29"/>
+	<node demand="0.90" elevation="111" nodeID="30"/>
+	<node demand="4.60" elevation="170" nodeID="31"/>
+	<node demand="1.05" elevation="144" nodeID="32"/>
+	<node demand="2.73" elevation="140" nodeID="33"/>
+	<node demand="2.10" elevation="228" nodeID="34"/>
+	<node demand="1.30" elevation="253" nodeID="35"/>
+	<node demand="0.82" elevation="199" nodeID="36"/>
+	<node demand="0.42" elevation="192" nodeID="37"/>
+	<node demand="2.74" elevation="297" nodeID="38"/>
+	<node demand="1.74" elevation="292" nodeID="39"/>
+	<node demand="4.80" elevation="272" nodeID="40"/>
+	<node demand="1.67" elevation="277" nodeID="41"/>
+	<node demand="1.90" elevation="173" nodeID="42"/>
+	<node demand="1.46" elevation="211" nodeID="43"/>
+	<node demand="3.86" elevation="146" nodeID="44"/>
+	<node demand="3.97" elevation="256" nodeID="45"/>
+	<node demand="2.99" elevation="295" nodeID="46"/>
+	<node demand="4.02" elevation="261" nodeID="47"/>
+	<node demand="0.54" elevation="183" nodeID="48"/>
+	<node demand="1.23" elevation="178" nodeID="49"/>
+	<node demand="1.68" elevation="192" nodeID="50"/>
+  </nodes>
+  <pipes>
+    <defaultRoughness>140.0</defaultRoughness>
+    <minHeadLossPerKM>0.0</minHeadLossPerKM>
+    <maxHeadLossPerKM>10.0</maxHeadLossPerKM>
+    <pipe endNode="2" length="4514.0" pipeID="1" startNode="1"/>
+    <pipe endNode="3" length="3097.0" pipeID="2" startNode="2"/>
+    <pipe endNode="4" length="3493.0" pipeID="3" startNode="2"/>
+    <pipe endNode="5" length="3672.0" pipeID="4" startNode="2"/>
+    <pipe endNode="6" length="4085.0" pipeID="5" startNode="2"/>
+    <pipe endNode="7" length="1873.0" pipeID="6" startNode="2"/>
+    <pipe endNode="8" length="4693.0" pipeID="7" startNode="2"/>
+    <pipe endNode="9" length="3103.0" pipeID="8" startNode="3"/>
+    <pipe endNode="10" length="3632.0" pipeID="9" startNode="3"/>
+    <pipe endNode="11" length="3126.0" pipeID="10" startNode="3"/>
+    <pipe endNode="12" length="2871.0" pipeID="11" startNode="3"/>
+    <pipe endNode="13" length="1281.0" pipeID="12" startNode="4"/>
+    <pipe endNode="14" length="1062.0" pipeID="13" startNode="4"/>
+    <pipe endNode="15" length="4480.0" pipeID="14" startNode="5"/>
+    <pipe endNode="16" length="1188.0" pipeID="15" startNode="6"/>
+    <pipe endNode="17" length="809.0" pipeID="16" startNode="7"/>
+    <pipe endNode="18" length="4263.0" pipeID="17" startNode="7"/>
+    <pipe endNode="19" length="1235.0" pipeID="18" startNode="7"/>
+    <pipe endNode="20" length="4293.0" pipeID="19" startNode="7"/>
+    <pipe endNode="21" length="4877.0" pipeID="20" startNode="8"/>
+    <pipe endNode="22" length="3924.0" pipeID="21" startNode="9"/>
+    <pipe endNode="23" length="893.0" pipeID="22" startNode="9"/>
+    <pipe endNode="24" length="4633.0" pipeID="23" startNode="9"/>
+    <pipe endNode="25" length="1096.0" pipeID="24" startNode="9"/>
+    <pipe endNode="26" length="732.0" pipeID="25" startNode="10"/>
+    <pipe endNode="27" length="3107.0" pipeID="26" startNode="10"/>
+    <pipe endNode="28" length="1079.0" pipeID="27" startNode="10"/>
+    <pipe endNode="29" length="2220.0" pipeID="28" startNode="11"/>
+    <pipe endNode="30" length="3574.0" pipeID="29" startNode="11"/>
+    <pipe endNode="31" length="2079.0" pipeID="30" startNode="11"/>
+    <pipe endNode="32" length="3579.0" pipeID="31" startNode="11"/>
+    <pipe endNode="33" length="2768.0" pipeID="32" startNode="11"/>
+    <pipe endNode="34" length="4357.0" pipeID="33" startNode="12"/>
+    <pipe endNode="35" length="3081.0" pipeID="34" startNode="12"/>
+    <pipe endNode="36" length="1068.0" pipeID="35" startNode="12"/>
+    <pipe endNode="37" length="1121.0" pipeID="36" startNode="12"/>
+    <pipe endNode="38" length="1608.0" pipeID="37" startNode="13"/>
+    <pipe endNode="39" length="845.0" pipeID="38" startNode="13"/>
+    <pipe endNode="40" length="2251.0" pipeID="39" startNode="13"/>
+    <pipe endNode="41" length="1860.0" pipeID="40" startNode="14"/>
+    <pipe endNode="42" length="3050.0" pipeID="41" startNode="14"/>
+    <pipe endNode="43" length="2456.0" pipeID="42" startNode="14"/>
+    <pipe endNode="44" length="1959.0" pipeID="43" startNode="14"/>
+    <pipe endNode="45" length="1194.0" pipeID="44" startNode="15"/>
+    <pipe endNode="46" length="3731.0" pipeID="45" startNode="16"/>
+    <pipe endNode="47" length="2630.0" pipeID="46" startNode="17"/>
+    <pipe endNode="48" length="2078.0" pipeID="47" startNode="17"/>
+    <pipe endNode="49" length="3150.0" pipeID="48" startNode="17"/>
+    <pipe endNode="50" length="4595.0" pipeID="49" startNode="17"/>
+  </pipes>
+  <pipeCosts>
+    <pipeCost cost="576.0" diameter="140.0"/>
+    <pipeCost cost="1113.0" diameter="200.0"/>
+    <pipeCost cost="340.0" diameter="110.0"/>
+    <pipeCost cost="2794.0" diameter="315.0"/>
+    <pipeCost cost="750.0" diameter="160.0"/>
+    <pipeCost cost="2210.0" diameter="280.0"/>
+    <pipeCost cost="1430.0" diameter="225.0"/>
+    <pipeCost cost="172.0" diameter="75.0"/>
+    <pipeCost cost="1762.0" diameter="250.0"/>
+    <pipeCost cost="461.0" diameter="125.0"/>
+    <pipeCost cost="116.0" diameter="63.0"/>
+    <pipeCost cost="945.0" diameter="180.0"/>
+    <pipeCost cost="231.0" diameter="90.0"/>
+    <pipeCost cost="3537.0" diameter="355.0"/>
+    <pipeCost cost="4645.0" diameter="400.0"/>
+    <pipeCost cost="6212.0" diameter="450.0"/>
+    <pipeCost cost="7663.0" diameter="500.0"/>
+    <pipeCost cost="9618.0" diameter="560.0"/>
+    <pipeCost cost="12109.0" diameter="630.0"/>
+    <pipeCost cost="15344.0" diameter="710.0"/>
+  </pipeCosts>
+  <esr>
+    <esr_enabled>true</esr_enabled>
+    <secondary_supply_hours>12.0</secondary_supply_hours>
+    <esr_capacity_factor>0.5</esr_capacity_factor>
+    <max_esr_height>25.0</max_esr_height>
+    <allow_dummy>true</allow_dummy>
+    <must_esrs/>
+    <must_not_esrs/>
+    <esr_costs>
+      <esr_cost basecost="0.0" maxcapacity="25000.0" mincapacity="0.0" unitcost="24.47"/>
+      <esr_cost basecost="611750.0" maxcapacity="50000.0" mincapacity="25000.0" unitcost="12.96"/>
+      <esr_cost basecost="935750.0" maxcapacity="75000.0" mincapacity="50000.0" unitcost="9.64"/>
+      <esr_cost basecost="1176750.0" maxcapacity="100000.0" mincapacity="75000.0" unitcost="8.64"/>
+      <esr_cost basecost="1392750.0" maxcapacity="150000.0" mincapacity="100000.0" unitcost="7.23"/>
+      <esr_cost basecost="1754250.0" maxcapacity="200000.0" mincapacity="150000.0" unitcost="6.03"/>
+      <esr_cost basecost="2055750.0" maxcapacity="300000.0" mincapacity="200000.0" unitcost="5.4"/>
+      <esr_cost basecost="2595750.0" maxcapacity="400000.0" mincapacity="300000.0" unitcost="5.12"/>
+      <esr_cost basecost="3107750.0" maxcapacity="1500000.0" mincapacity="400000.0" unitcost="4.32"/>
+      <esr_cost basecost="7859750.0" maxcapacity="2.0E8" mincapacity="1500000.0" unitcost="3.92"/>
+    </esr_costs>
+  </esr>
+  <pump>
+    <pump_enabled>true</pump_enabled>
+    <minimum_pump_size>1.0</minimum_pump_size>
+    <pump_efficiency>70.0</pump_efficiency>
+    <capital_cost_per_kw>30000.0</capital_cost_per_kw>
+    <energy_cost_per_kwh>6.5</energy_cost_per_kwh>
+    <design_lifetime>15</design_lifetime>
+    <discount_rate>7.0</discount_rate>
+    <inflation_rate>5.0</inflation_rate>
+    <pipes_without_pumps/>
+    <manual_pumps/>
+  </pump>
+  <map>
+    <map_source_node nodeid="8"/>
+    <map_nodes/>
+    <map_pipes/>
+  </map>
+</root>

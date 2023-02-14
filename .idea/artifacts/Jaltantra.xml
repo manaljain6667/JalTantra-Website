@@ -1,0 +1,32 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Jaltantra">
+    <output-path>$PROJECT_DIR$/classes/artifacts/Jaltantra</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Jaltantra" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="dir-copy" path="$PROJECT_DIR$/lib" />
+          <element id="dir-copy" path="$PROJECT_DIR$/WebContent/WEB-INF/lib" />
+        </element>
+      </element>
+      <element id="file-copy" path="$PROJECT_DIR$/WebContent/doc.kml" />
+      <element id="file-copy" path="$PROJECT_DIR$/WebContent/drinkingwater.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/WebContent/favicon.ico" />
+      <element id="file-copy" path="$PROJECT_DIR$/WebContent/iitb_logo_black_small.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/WebContent/index.html" />
+      <element id="file-copy" path="$PROJECT_DIR$/WebContent/waterdrop.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/WebContent/watertower.png" />
+      <element id="directory" name="js">
+        <element id="dir-copy" path="$PROJECT_DIR$/WebContent/js" />
+      </element>
+      <element id="directory" name="css">
+        <element id="dir-copy" path="$PROJECT_DIR$/WebContent/css" />
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="dir-copy" path="$PROJECT_DIR$/WebContent/META-INF" />
+      </element>
+    </root>
+  </artifact>
+</component>
