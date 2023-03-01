@@ -3268,8 +3268,10 @@ public class OptimizerServlet extends HttpServlet
 
 			optimizer.Optimizer opt = new optimizer.Optimizer(nodes, pipes, commercialPipes, generalProperties, esrGeneralProperties, esrCostsArray, pumpGeneralProperties, pumpManualArray, valves);
 
+			String runTime=request.getParameter("time");
+
 			// Start the true optimization work
-			final boolean solved = opt.Optimize();
+			final boolean solved = opt.Optimize(runTime);
 
 			String message;
 			if (solved) {
@@ -3650,6 +3652,9 @@ public class OptimizerServlet extends HttpServlet
 			performNonOptimizationRelatedAction(request, response, action);
 			return;
 		}
+
+		final String runTime=request.getParameter("time");
+		System.out.println(runTime);
 
 		performOptimization(request, response);
 	}

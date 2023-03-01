@@ -6,12 +6,6 @@
 <link rel="shortcut icon" href="iitb_logo_black_small.png">
 <link rel="stylesheet" type="text/css" href="css/w2ui-1.4.2.css" />
 <link rel="stylesheet" type="text/css" href="css/font-awesome/css/font-awesome.css" />
-
-
-
-
-    <script type="text/javascript" src="//www.google.com/jsapi"></script>
-    <script type="text/javascript" src="//maps.google.com/maps/api/js?key=AIzaSyBiYuLb_yGvYCXBnBL-Wz_8Pswbrek0Vds&libraries=geometry,places"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/pepper-grinder/jquery-ui.css">
 
 <!-- CSS, JQuery, Poppler and Bootstrap for timer popup -->
@@ -284,11 +278,8 @@ var config = {
 		            //button to send information to server and optimize the network    
 	                { id: 'optimization', text: 'Optimize Network', expanded: false, group: true
 	                	, nodes : [
-	                	{ id: 'optimize', text: 'run for 5 minutes', icon: 'fa fa-wrench'},
-                            { id: 'optimize_again', text: 'Run for 1 hour', icon: 'fa fa-wrench' },  //button to run the optimization again for 1 hour
+	                	{ id: 'optimize', text: 'Optimize', icon: 'fa fa-wrench'},
 	                	{ id: 'results', text: 'Results', icon: 'fa fa-bar-chart' }]},
-
-
                 	//load and save input/output files
                 	{ id: 'loadsave', text: 'Load/Save Files', expanded: false, group: true
 	                	, nodes : [
@@ -437,8 +428,7 @@ var config = {
 	                    var pumpManualString = JSON.stringify(w2ui.pumpmaingrid.records,replacer);
                     	
 	                    var valveString = JSON.stringify(w2ui.valvegrid.records,replacer);
-
-                        var RunTime='5min';
+	                    
 	                    //send server request with JSON objects
 	                    w2ui.generalform.save({'general': generalString,
 	                    						'nodes': nodesString, 
@@ -450,8 +440,7 @@ var config = {
 	                    						'pumpManual': pumpManualString,
 	                    						'valves': valveString,
 	                    						'version': version,
-	                    						'place': place,
-                                                'time':RunTime},
+	                    						'place': place}, 
                     		function(data)
                     		{
 	                    		//populate result tables with server response
@@ -536,136 +525,6 @@ var config = {
                     			w2ui.sidebar.enable('saveoutputepanetfile');
                     		});
 	                	break;
-
-                    case 'optimize_again':
-                        //clear any previous result tables
-                        w2ui.resultnodegrid.clear();
-                        w2ui.resultpipegrid.clear();
-                        w2ui.resultcostgrid.clear();
-                        w2ui.resultesrcostgrid.clear();
-                        w2ui.resultpumpgrid.clear();
-                        //validate input data
-                        if(!validateData())
-                            return;
-                        //convert all network data into JSON strings
-                        var generalString = JSON.stringify(w2ui.generalform.record,replacer);
-                        var nodesString = JSON.stringify(w2ui.nodegrid.records,replacer);
-                        var pipesString = JSON.stringify(w2ui.pipegrid.records,replacer);
-                        var commercialPipesString = JSON.stringify(w2ui.commercialpipegrid.records,replacer);
-
-                        var esrProperties = w2ui.esrmainform.record;
-                        esrProperties.esr_enabled = (w2ui.esrtopform.record['enable_esr'] == true);
-                        var esrGeneralString = JSON.stringify(esrProperties,esrnodereplacer);
-                        var esrCostString = JSON.stringify(w2ui.esrmaingrid.records,replacer);
-
-                        var pumpProperties = w2ui.pumpmainform.record;
-                        pumpProperties.pump_enabled = (w2ui.pumptopform.record['enable_pump'] == true);
-                        pumpProperties.energycost_factor = 1;
-                        var pumpGeneralString = JSON.stringify(pumpProperties,pumpnodereplacer);
-                        var pumpManualString = JSON.stringify(w2ui.pumpmaingrid.records,replacer);
-
-                        var valveString = JSON.stringify(w2ui.valvegrid.records,replacer);
-
-                        var RunTime='1hour';
-
-                        //send server request with JSON objects
-                        w2ui.generalform.save({'general': generalString,
-                                'nodes': nodesString,
-                                'pipes': pipesString,
-                                'commercialPipes': commercialPipesString,
-                                'esrGeneral': esrGeneralString,
-                                'esrCost': esrCostString,
-                                'pumpGeneral': pumpGeneralString,
-                                'pumpManual': pumpManualString,
-                                'valves': valveString,
-                                'version': version,
-                                'place': place,
-                            'time':RunTime},
-                            function(data)
-                            {
-                                //populate result tables with server response
-                                if (data.hasOwnProperty('message')) {
-                                    if (!data['message'].startsWith('The solver is working, refresh the page')) {
-                                        w2alert(data['message']);
-                                        return;
-                                    }
-                                    myDisplayTimeronehour();
-                                    return;
-                                }
-
-                                w2alert(data['data']);
-                                var resultnodes = data['resultnodes'];
-                                $.each(resultnodes, function(index,value)
-                                {
-                                    value['recid']=index+1;
-                                });
-                                w2ui.resultnodegrid.add(resultnodes);
-
-                                var resultpipes = data['resultpipes'];
-                                $.each(resultpipes, function(index,value){
-                                    value['recid']=index+1;
-                                    if(value['pressureexceeded']){
-                                        value['style'] = 'background-color: red';
-                                    }
-                                    if(value['pumphead']==0){
-                                        value['pumphead'] = null;
-                                    }
-                                    if(value['pumppower']==0){
-                                        value['pumppower'] = null;
-                                    }
-                                    if(value['valvesetting']==0){
-                                        value['valvesetting'] = null;
-                                    }
-                                });
-                                w2ui.resultpipegrid.add(resultpipes);
-
-                                var resultcost = data['resultcost'];
-                                $.each(resultcost, function(index,value)
-                                {
-                                    value['recid']=index+1;
-                                });
-                                w2ui.resultcostgrid.add(resultcost);
-
-                                var resultesrcost = data['resultesrcost'];
-                                $.each(resultesrcost, function(index,value)
-                                {
-                                    value['recid']=index+1;
-                                });
-                                w2ui.resultesrcostgrid.add(resultesrcost);
-
-                                var resultpumpcost = data['resultpumpcost'];
-                                var totalpower = 0;
-                                var totalenergy = 0;
-                                var totalcapital = 0;
-                                var totalcost = 0;
-                                $.each(resultpumpcost, function(index,value)
-                                {
-                                    value['recid']=index+1;
-                                    totalpower += value.pumppower;
-                                    totalenergy += value.energycost;
-                                    totalcapital += value.capitalcost;
-                                    totalcost += value.totalcost;
-                                });
-                                w2ui.resultpumpgrid.add(resultpumpcost);
-                                w2ui.resultpumpgrid.add({
-                                    w2ui: { summary: true },
-                                    style: 'background-color : palegreen',
-                                    recid: 'S-1',
-                                    pipeid: 'Total',
-                                    pumppower: totalpower,
-                                    energycost: totalenergy,
-                                    capitalcost: totalcapital,
-                                    totalcost: totalcost
-                                });
-
-                                generateCoordinates();
-
-                                w2ui.sidebar.click('results');
-                                w2ui.sidebar.enable('saveoutputexcelfile');
-                                w2ui.sidebar.enable('saveoutputepanetfile');
-                            });
-                        break;
-
 	                case 'units':
 	                	w2ui.layout.content('main',
 	                	"<div style='font-family: \"w2ui-font\"'>"
@@ -4034,15 +3893,8 @@ function map_initialize()
     		zoom: 12,
     		streetViewControl: false,
     		});
-
-    //Initialising Columnchart
-    //Initialising Corechart
-    //Charts have several kinds of labels, such as tick labels, legend labels, and labels in the tooltips.
-    google.charts.load('current', {packages: ['columnchart']});
-    google.charts.load("visualization",{packages: ["corechart"]});
-
-
-    //initalizing and adding a 'add node' button
+  
+	//initalizing and adding a 'add node' button
 	var optionsControl1Div = document.createElement('div');
 	var optionsControl1 = new OptionsControl1(optionsControl1Div, map);
 	optionsControl1Div.index = 1;
@@ -4061,16 +3913,7 @@ function map_initialize()
   	infoWindow = new google.maps.InfoWindow();
   	
   	//initalize a chart to display elevation profiles of paths
-  	//chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-    //initalize a chart to display elevation profiles of paths
-    //chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));//initalize a chart to display elevation profiles of paths
-    //chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-    //initalize a chart to display elevation profiles of paths
-    //chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-    //Declared var chart because it was producing error -> chart not defined
-    //Map was not working because of this error and many others
-
-    var chart = google.load("visualization", "1", { packages: ["columnchart"] }, document.getElementById('chart_div'));
+  	chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
   
   	//initalize google map services to get elevations and directions
   	elevationService = new google.maps.ElevationService();
@@ -4353,7 +4196,7 @@ function myDisplayTimer() {
     }
 
     // Set the date we're counting down to
-    const countDownDate = new Date().getTime() + (5 * 60) * 1000;
+    const countDownDate = new Date().getTime() + (300) * 1000;
 
     const countdown = () => {
         const now = new Date().getTime();
@@ -4407,77 +4250,6 @@ function myDisplayTimer() {
     // REFER: https://getbootstrap.com/docs/3.4/javascript/
     (new bootstrap.Modal(document.getElementById("myModalOptimizeTimer"), {})).show()
 }
-
-function myDisplayTimeronehour() {
-    // REFER: https://codepen.io/Seamni69/pen/gOvYKXv
-    // REFER: https://www.w3schools.com/bootstrap4/bootstrap_modal.asp
-    //        https://www.w3schools.com/bootstrap4/tryit.asp?filename=trybs_modal&stacked=h
-
-    document.querySelector(".myModalOptimizeTimer_classTimer").innerHTML = "Processing...";
-
-    // REFER: https://www.geeksforgeeks.org/javascript-check-the-existence-of-variable/
-    if (gWatchCountdown !== null) {
-        // Stopping previous timer & Starting a new one
-        clearInterval(gWatchCountdown);
-        gWatchCountdown = null
-    }
-
-    // Set the date we're counting down to
-    const countDownDate = new Date().getTime() + (60 * 60) * 1000;
-
-    const countdown = () => {
-        const now = new Date().getTime();
-        const gap = countDownDate - now;
-
-        // How does the time work?
-        const second = 1000;
-        const minute = second * 60;
-        const hour = minute * 60;
-        const day = hour * 24;
-
-        // calculate
-        const textDay = Math.floor(gap / day);
-        const textHour = Math.floor((gap % day) / hour);
-        const textMinute = Math.floor((gap % hour) / minute);
-        const textSecond = Math.floor((gap % minute) / second);
-
-        let timerText = "";
-        let isPrefixIncluded = false;
-        if (isPrefixIncluded || textDay !== 0) {
-            isPrefixIncluded = true;
-            timerText += textDay + "d ";
-        }
-        if (isPrefixIncluded || textHour !== 0) {
-            isPrefixIncluded = true;
-            timerText += textHour + "h ";
-        }
-        if (isPrefixIncluded || textMinute !== 0) {
-            isPrefixIncluded = true;
-            timerText += textMinute + "m ";
-        }
-        if (isPrefixIncluded || textSecond !== 0) {
-            timerText += textSecond + "s";
-        }
-        document.querySelector(".myModalOptimizeTimer_classTimer").innerHTML = "Optimizing, please wait for " + timerText;
-
-        if (gap <= 0) {
-            clearInterval(gWatchCountdown);
-            gWatchCountdown = null;
-            document.querySelector(".myModalOptimizeTimer_classTimer").innerHTML = "Click <i>Optimize</i> again to get the results.";
-
-            // REFER: https://stackoverflow.com/questions/195951/how-can-i-change-an-elements-class-with-javascript
-            document.getElementById("myModalOptimizeTimer_idTimerDismiss").classList.remove('btn-outline-primary');
-            document.getElementById("myModalOptimizeTimer_idTimerDismiss").classList.add('btn-primary');
-        }
-    };
-
-    gWatchCountdown = setInterval(countdown, 1000);
-
-    // REFER: https://stackoverflow.com/questions/62827002/bootstrap-v5-manually-call-a-modal-mymodal-show-not-working-vanilla-javascrip
-    // REFER: https://getbootstrap.com/docs/3.4/javascript/
-    (new bootstrap.Modal(document.getElementById("myModalOptimizeTimer"), {})).show()
-}
-
 
 console.log('Page successfully loaded, URL="/jaltantra_loop/optimizer"');
 </script>
