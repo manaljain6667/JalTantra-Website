@@ -298,6 +298,8 @@ public class Optimizer {
 	static String SOLVER_EXECUTION_TIME_DISPLAY_STR = "5 minutes";
 
 	static String list_of_times[]={"00:10:00","00:20:00"};
+
+	static String run_Time="";
 	/**
 	 * Optimize the network. And, if done successfully, the results are stored in three ArrayLists,
 	 * namely resultPipes, resultCost and resultPumps.
@@ -310,6 +312,13 @@ public class Optimizer {
 		// Execution flow:
 		//   1. Create the data files for the network
 		//   2. Asynchronously launch `CalculateNetworkCost.py` for the data files
+
+		run_Time=runTime;
+
+		if(runTime.equals("1hour")){
+			SOLVER_EXECUTION_TIME="01:00:00";
+			SOLVER_EXECUTION_TIME_DISPLAY_STR="1 hour";
+		}
 
 		// Validate the network layout
 		logd("Network validation started...");
@@ -337,6 +346,8 @@ public class Optimizer {
 				throw new Exception("Please save the network file, if not, before continuing the optimization");
 			}
 
+			String previousHash=networkFileHash;
+
 			networkFileHash=networkFileHash+runTime;
 
 			boolean statusFileExists = (new File(SOLVER_ROOT_DIR + "/" + SOLVER_3_AUTO_SOLVE_SCRIPT_DIR + "/" + networkFileHash + "/0_status")).exists();
@@ -354,114 +365,6 @@ public class Optimizer {
 
 			String message="";
 
-
-			// if (resultfile.exists()) {
-			// 	try (BufferedReader reader = new BufferedReader(new FileReader(resultfile))) {
-			// 		String line = reader.readLine();
-			//
-			// 		// this case is already handled
-			// 		// if(line.equals("False")) {
-			// 		//
-			// 		// 	resultFileContent = false;
-			// 		//
-			// 		// 	message="There was no result previously, click on optimize button again";
-			// 		//
-			// 		// 	// 	delete the previous NetworkResults folder of this particular hash file.
-			// 		// 	String pathToFile=SOLVER_ROOT_DIR + "/" + SOLVER_3_AUTO_SOLVE_SCRIPT_DIR + "/" + networkFileHash;
-			// 		// 	deleteNetworkResults(pathToFile);
-			// 		//
-			// 		// }
-			// 		//
-			// 		if(line.equals("True")){
-			// 		// 	read the lines of this file and if the number of lines are less than or equal to 5
-			// 		// 	means that there was voilation of constraints or there was someother error so need to rerun
-			//
-			// 			try {
-			// 				Scanner scanner = new Scanner(resultfile);
-			// 				// read the contents of the file line by line
-			// 				while (scanner.hasNextLine()) {
-			// 					String lastLine = scanner.nextLine();
-			// 					cntlinesInResultFile++;
-			// 				}
-			//
-			// 				scanner.close();
-			//
-			// 			} catch (FileNotFoundException e) {
-			// 				System.out.println("Result File not found: " + e.getMessage());
-			// 			}
-			//
-			// 			if(cntlinesInResultFile <= 5){
-			// 				resultFileContent = false;
-			//
-			// 				message="There was error in the extraction of the results, please click on optimize button again";
-			//
-			// 				// 	delete the previous NetworkResults folder of this particular hash file.
-			// 				String pathToFile=SOLVER_ROOT_DIR + "/" + SOLVER_3_AUTO_SOLVE_SCRIPT_DIR + "/" + networkFileHash;
-			// 				deleteNetworkResults(pathToFile);
-			// 			}
-			//
-			// 		}
-			// 		System.out.println("Result File content: " + line);
-			// 	} catch (IOException e) {
-			// 		System.out.println("Error reading from Result file: " + e.getMessage());
-			// 	}
-			// 	System.out.println("Result File already exists.");
-			// }
-
-			// done to stop the rerunning of that particular network, to avoid the infinte loop, if previously one
-			// attempt was made
-			// if(previousRunFile.exists() && resultFileContent == false){
-			// // 	0 - means that previously there was no error so no need to display the error message
-			// // 	1 - means that previously there was error so need to display the message and change the content of this
-			// // 	    file to 0 to do the execution of this file
-			//
-			// 	//Reading the content of the file
-			// 	int contentOfFle=-1;
-			//
-			// 	try {
-			// 		Scanner scanner = new Scanner(previousRunFile);
-			// 		// read the contents of the file line by line
-			// 		while (scanner.hasNextLine()) {
-			// 			String lastLine = scanner.nextLine();
-			// 			if(lastLine.equals("0")){
-			// 				contentOfFle=0;
-			// 			}
-			// 			else contentOfFle=1;
-			// 		}
-			// 		scanner.close();
-			//
-			// 		if(contentOfFle == 1){
-			// 			try (FileWriter writer = new FileWriter(previousRunFile)) {
-			// 				writer.write("0");
-			// 				System.out.println("previousRunFile content = 0 written successfully.");
-			// 			} catch (IOException e) {
-			// 				System.out.println("Error writing to previousRunFile: " + e.getMessage());
-			// 			}
-			// 			throw new Exception(message);
-			// 		}
-			// 		else {
-			// 			try (FileWriter writer = new FileWriter(previousRunFile)) {
-			// 				writer.write("1");
-			// 				System.out.println("previousRunFile content = 1 written successfully.");
-			// 			} catch (IOException e) {
-			// 				System.out.println("Error writing to previousRunFile: " + e.getMessage());
-			// 			}
-			// 		}
-			//
-			// 	} catch (FileNotFoundException e) {
-			// 		System.out.println("Result File not found: " + e.getMessage());
-			// 	}
-			// }
-			// else if(!previousRunFile.exists()){
-			// 	previousRunFile.createNewFile();
-			// 	try (FileWriter writer = new FileWriter(previousRunFile)) {
-			// 		writer.write("1");
-			// 		System.out.println("previousRunFilewritten successfully.");
-			// 	} catch (IOException e) {
-			// 		System.out.println("Error writing to previousRunFile: " + e.getMessage());
-			// 	}
-			// }
-
 			logd("networkFileHash = " + networkFileHash + ", statusFileExists = " + statusFileExists);
 
 			if (networkFileStatus.equals("0") || statusFileExists == false || resultFileContent == false) {
@@ -477,7 +380,7 @@ public class Optimizer {
 				if (status == -1) {
 					loge("CHECKME: FIXME: Probably failed to start the solver launch script, or 'CalculateNetworkCost.py' failed to create the status file");
 
-					// here we will check for the launching error of the file, if there was then delete the directory
+					// here we will check for the launching error of the file, if there was then delete the previous directory
 
 					String pathToFile=SOLVER_ROOT_DIR + "/" + SOLVER_3_AUTO_SOLVE_SCRIPT_DIR + "/" + networkFileHash;
 					deleteNetworkResults(pathToFile);
@@ -487,8 +390,8 @@ public class Optimizer {
 					loge("FIXME: Failed to start the solver for network file: " + networkFileResult);
 					throw new Exception("Internal server error: failed to start the solver for this network");
 				} else if (status == 1) {
-					String Baronm1filePath=SOLVER_ROOT_DIR+"/"+SOLVER_3_AUTO_SOLVE_SCRIPT_DIR+"/"+networkFileHash+"/baron_m1_"+networkFileHash+"/"+"std_out_err.txt";
-					String Baronm2filePath=SOLVER_ROOT_DIR+"/"+SOLVER_3_AUTO_SOLVE_SCRIPT_DIR+"/"+networkFileHash+"/baron_m2_"+networkFileHash+"/"+"std_out_err.txt";
+					String Baronm1filePath=SOLVER_ROOT_DIR+"/"+SOLVER_3_AUTO_SOLVE_SCRIPT_DIR+"/"+networkFileHash+"/baron_m1_"+previousHash+"/"+"std_out_err.txt";
+					String Baronm2filePath=SOLVER_ROOT_DIR+"/"+SOLVER_3_AUTO_SOLVE_SCRIPT_DIR+"/"+networkFileHash+"/baron_m2_"+previousHash+"/"+"std_out_err.txt";
 
 					File baronM1File = new File(Baronm1filePath);
 					File baronM2File=new File(Baronm2filePath);
@@ -524,32 +427,37 @@ public class Optimizer {
 						// convert sec into hours minutes and seconds format
 						String resultTime=getTimeToDisplay(time_passed);
 
-						String remainingTime="";
-						String pathToattemptsFile=SOLVER_ROOT_DIR+"/"+SOLVER_2_HASH_FILE_DIR+"/"+networkFileName+"_attemptsFile.txt";
+						if(runTime.equals("5min")){
 
-						if(!new File(pathToattemptsFile).exists()){
-							int remaining=300-((int)(Float.parseFloat(time_passed)));
-							remainingTime=getTimeToDisplay(""+remaining);
-						}
-						else{
-							int temp=0;
-							try (BufferedReader reader = new BufferedReader(new FileReader(pathToattemptsFile))) {
-								String line = reader.readLine();
-								temp=Integer.parseInt(line);
-							} catch (IOException e) {
-								System.out.println("Error reading from attempts file during displaying of time: " + e.getMessage());
+							String remainingTime="";
+							String pathToattemptsFile=SOLVER_ROOT_DIR+"/"+SOLVER_2_HASH_FILE_DIR+"/"+networkFileName+"_attemptsFile.txt";
+
+							if(!new File(pathToattemptsFile).exists()){
+								int remaining=300-((int)(Float.parseFloat(time_passed)));
+								remainingTime=getTimeToDisplay(""+remaining);
 							}
-							String currentTime=list_of_times[temp-1];
-							String currentMinutes=getMinutesToDisplay(currentTime);
+							else{
+								int temp=0;
+								try (BufferedReader reader = new BufferedReader(new FileReader(pathToattemptsFile))) {
+									String line = reader.readLine();
+									temp=Integer.parseInt(line);
+								} catch (IOException e) {
+									System.out.println("Error reading from attempts file during displaying of time: " + e.getMessage());
+								}
+								String currentTime=list_of_times[temp-1];
+								String currentMinutes=getMinutesToDisplay(currentTime);
 
-							int currentMin=Integer.parseInt(currentMinutes);
-							int currentsec=currentMin*60;  // we will get seconds
+								int currentMin=Integer.parseInt(currentMinutes);
+								int currentsec=currentMin*60;  // we will get seconds
 
-							int remining=currentsec-((int)(Float.parseFloat(time_passed)));
-							remainingTime=getTimeToDisplay(""+remining);
+								int remining=currentsec-((int)(Float.parseFloat(time_passed)));
+								remainingTime=getTimeToDisplay(""+remining);
+							}
+							logi("Solver is running for this network. Please wait..., current cost : "+optimalCost);
+							throw new Exception("Solver is running for this network. Please wait...,  "+resultTime+" passed, remaining Time : "+remainingTime);
 						}
 						logi("Solver is running for this network. Please wait..., current cost : "+optimalCost);
-						throw new Exception("Solver is running for this network. Please wait...,  "+resultTime+" passed, remaining Time : "+remainingTime);
+						throw new Exception("Solver is running for this network. Please wait...,  "+resultTime+" passed");
 					}
 					else{
 						logi("Solver is running for this network. Please wait...");
@@ -558,9 +466,14 @@ public class Optimizer {
 					// logi("Solver is running for this network. Please wait...");
 					// throw new Exception("Solver is running for this network. Please wait...");
 				} else if (status == 2) {
+
+					if(!runTime.equals("5min")){
+						throw new Exception("Either no feasible solution found, or failed to solve the network in " + SOLVER_EXECUTION_TIME_DISPLAY_STR+" minutes");
+					}
+
 					loge("CHECKME: The solvers finished the execution, but failed to get the result. " +
 						 "Either some unknown error, or no feasible solution found, or failed to solve the network, click optimize again and check after " + SOLVER_EXECUTION_TIME_DISPLAY_STR+" minutes");
-					//creating an attempts file
+					//creating an attempts file and relaunching the network with the updated time
 					String pathToattemptsFile=SOLVER_ROOT_DIR+"/"+SOLVER_2_HASH_FILE_DIR+"/"+networkFileName;
 					File file = new File(pathToattemptsFile+"_attemptsFile.txt");
 					if (!file.exists()) {
@@ -626,85 +539,6 @@ public class Optimizer {
 					}
 					throw new Exception("Either no feasible solution found, or failed to solve the network in " + SOLVER_EXECUTION_TIME_DISPLAY_STR+" minutes");
 
-					// if(attempts == 1){
-					// 	attempts=2;
-					// 	try (FileWriter writer = new FileWriter(file)) {
-					// 		writer.write(""+attempts);
-					// 		System.out.println("File written successfully.");
-					// 	} catch (IOException e) {
-					// 		System.out.println("Error writing to file: " + e.getMessage());
-					// 	}
-					// 	SOLVER_EXECUTION_TIME="00:10:00";
-					// 	System.out.println("system is running for "+SOLVER_EXECUTION_TIME+"minutes");
-					//
-					// 	//delete previously existed network results
-					// 	String pathToFile=SOLVER_ROOT_DIR + "/" + SOLVER_3_AUTO_SOLVE_SCRIPT_DIR + "/" + networkFileHash;
-					// 	deleteNetworkResults(pathToFile);
-					// 	statusFileExists = (new File(SOLVER_ROOT_DIR + "/" + SOLVER_3_AUTO_SOLVE_SCRIPT_DIR + "/" + networkFileHash + "/0_status")).exists();
-					// 	launchCalculateNetworkCost(SOLVER_ROOT_DIR + "/" + SOLVER_2_HASH_FILE_DIR + "/" + networkFileName);
-					// 	status = checkSolverResultStatus(SOLVER_ROOT_DIR + "/" + SOLVER_3_AUTO_SOLVE_SCRIPT_DIR + "/" + networkFileHash);
-					// 	System.out.println("system is now executing for 10 minutes");
-					// 	if (status == 3) {
-					// 		logi("Extracting the result");
-					// 		boolean ok = extractSolverResult(SOLVER_ROOT_DIR + "/" + SOLVER_3_AUTO_SOLVE_SCRIPT_DIR + "/" + networkFileHash);
-					// 		if (ok) return true;
-					// 		loge("CHECKME: FIXME: extractSolverResult(...) return false for network file with hash =" + networkFileHash);
-					// 		throw new Exception("Internal server error: result extraction failed for the network file with hash =" + networkFileHash);
-					// 	}
-					// 	SOLVER_EXECUTION_TIME_DISPLAY_STR=""+getMinutesToDisplay(SOLVER_EXECUTION_TIME);
-					// 	throw new Exception("Either no feasible solution found, or failed to solve the network, retrying for " + SOLVER_EXECUTION_TIME_DISPLAY_STR+" minutes");
-					// }else
-					// if(attempts == 2){
-					// 	attempts=3;
-					// 	try (FileWriter writer = new FileWriter(file)) {
-					// 		writer.write(""+attempts);
-					// 		System.out.println("File written successfully.");
-					// 	} catch (IOException e) {
-					// 		System.out.println("Error writing to file: " + e.getMessage());
-					// 	}
-					// 	SOLVER_EXECUTION_TIME="00:20:00";
-					// 	System.out.println("system is running for "+SOLVER_EXECUTION_TIME+"minutes");
-					//
-					// 	//delete previously existed network results
-					// 	String pathToFile=SOLVER_ROOT_DIR + "/" + SOLVER_3_AUTO_SOLVE_SCRIPT_DIR + "/" + networkFileHash;
-					// 	deleteNetworkResults(pathToFile);
-					// 	statusFileExists = (new File(SOLVER_ROOT_DIR + "/" + SOLVER_3_AUTO_SOLVE_SCRIPT_DIR + "/" + networkFileHash + "/0_status")).exists();
-					// 	launchCalculateNetworkCost(SOLVER_ROOT_DIR + "/" + SOLVER_2_HASH_FILE_DIR + "/" + networkFileName);
-					// 	status = checkSolverResultStatus(SOLVER_ROOT_DIR + "/" + SOLVER_3_AUTO_SOLVE_SCRIPT_DIR + "/" + networkFileHash);
-					// 	System.out.println("system is running for 20 minutes");
-					// 	if (status == 3) {
-					// 		logi("Extracting the result");
-					// 		boolean ok = extractSolverResult(SOLVER_ROOT_DIR + "/" + SOLVER_3_AUTO_SOLVE_SCRIPT_DIR + "/" + networkFileHash);
-					// 		if (ok) return true;
-					// 		loge("CHECKME: FIXME: extractSolverResult(...) return false for network file with hash =" + networkFileHash);
-					// 		throw new Exception("Internal server error: result extraction failed for the network file with hash =" + networkFileHash);
-					// 	}
-					// 	SOLVER_EXECUTION_TIME_DISPLAY_STR=""+getMinutesToDisplay(SOLVER_EXECUTION_TIME);
-					// 	throw new Exception("Either no feasible solution found, or failed to solve the network, retrying for " + SOLVER_EXECUTION_TIME_DISPLAY_STR+" minutes");
-					// }else throw new Exception("Either no feasible solution found, or failed to solve the network, in " + SOLVER_EXECUTION_TIME_DISPLAY_STR+" minutes");
-
-					// String timeOptions[]={"00:10:00","01:00:00","04:00:00",};
-					// for(String str:timeOptions) {
-					// 	SOLVER_EXECUTION_TIME = str;
-					// 	System.out.println("system is running for " + SOLVER_EXECUTION_TIME + "minutes");
-					//
-					// 	//delete previously existed network results
-					// 	String pathToFile = SOLVER_ROOT_DIR + "/" + SOLVER_3_AUTO_SOLVE_SCRIPT_DIR + "/" + networkFileHash;
-					// 	deleteNetworkResults(pathToFile);
-					// 	statusFileExists = (new File(SOLVER_ROOT_DIR + "/" + SOLVER_3_AUTO_SOLVE_SCRIPT_DIR + "/" + networkFileHash + "/0_status")).exists();
-					// 	launchCalculateNetworkCost(SOLVER_ROOT_DIR + "/" + SOLVER_2_HASH_FILE_DIR + "/" + networkFileName);
-					// 	status = checkSolverResultStatus(SOLVER_ROOT_DIR + "/" + SOLVER_3_AUTO_SOLVE_SCRIPT_DIR + "/" + networkFileHash);
-					// 	System.out.println("system got executed for 20 minutes");
-					// 	if (status == 3) {
-					// 		logi("Extracting the result");
-					// 		boolean ok = extractSolverResult(SOLVER_ROOT_DIR + "/" + SOLVER_3_AUTO_SOLVE_SCRIPT_DIR + "/" + networkFileHash);
-					// 		if (ok) return true;
-					// 		loge("CHECKME: FIXME: extractSolverResult(...) return false for network file with hash =" + networkFileHash);
-					// 		throw new Exception("Internal server error: result extraction failed for the network file with hash =" + networkFileHash);
-					// 	}
-					// 	SOLVER_EXECUTION_TIME_DISPLAY_STR = "" + getMinutesToDisplay(SOLVER_EXECUTION_TIME);
-					// }
-					// throw new Exception("Either no feasible solution found, or failed to solve the network, in " + SOLVER_EXECUTION_TIME_DISPLAY_STR+" minutes");
 				} else if (status == 3) {
 					logi("Extracting the result");
 					boolean ok = extractSolverResult(SOLVER_ROOT_DIR + "/" + SOLVER_3_AUTO_SOLVE_SCRIPT_DIR + "/" + networkFileHash);
@@ -1158,7 +992,8 @@ public class Optimizer {
 					"bash",
 					SOLVER_ROOT_DIR + "/CalculateNetworkCost_JaltantraLauncher.sh",
 					networkFilePath,
-					SOLVER_EXECUTION_TIME
+					SOLVER_EXECUTION_TIME,
+					run_Time
 			);
 			pb.directory(new File(System.getProperty("user.home")));
 			Process process = pb.start();
