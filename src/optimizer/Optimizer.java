@@ -320,6 +320,11 @@ public class Optimizer {
 			SOLVER_EXECUTION_TIME_DISPLAY_STR="1 hour";
 		}
 
+		if(runTime.equals("5min")){
+			SOLVER_EXECUTION_TIME="00:05:00";
+			SOLVER_EXECUTION_TIME_DISPLAY_STR="5 minutes";
+		}
+
 		// Validate the network layout
 		logd("Network validation started...");
 		final int networkValidationResult = validateNetwork();
