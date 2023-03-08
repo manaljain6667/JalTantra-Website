@@ -473,7 +473,7 @@ public class Optimizer {
 				} else if (status == 2) {
 
 					if(!runTime.equals("5min")){
-						throw new Exception("Either no feasible solution found, or failed to solve the network in " + SOLVER_EXECUTION_TIME_DISPLAY_STR+" minutes");
+						throw new Exception("Either no feasible solution found, or failed to solve the network in " + SOLVER_EXECUTION_TIME_DISPLAY_STR+" ");
 					}
 
 					loge("CHECKME: The solvers finished the execution, but failed to get the result. " +
@@ -969,8 +969,429 @@ public class Optimizer {
 		}
 
 		logi(String.format("File renamed and moved successfully: '%s' -> '%s'", pathTo1FreshFile, pathTo2HashedFileName));
+
+		logi("creating gams m1 and m2 model data file");
+		String solverToGamsm1=SOLVER_ROOT_DIR + "/" + SOLVER_2_HASH_FILE_DIR + "/"+fileHash+"m1.gms";
+		String solverToGamsm2=SOLVER_ROOT_DIR + "/" + SOLVER_2_HASH_FILE_DIR + "/"+fileHash+"m2.gms";
+		createGamsModel(pathTo2HashedFileName,solverToGamsm1,"m1");
+		createGamsModel(pathTo2HashedFileName,solverToGamsm2,"m2");
+		logi("finished creating gams m1 and m2 model data file");
 		return "0-" + hashedFileName;
 	}
+
+	public void createGamsModel(String amplFilePath,String gamsFilePath,String modelname) throws IOException {
+		ArrayList<String> nodes = new ArrayList<>();
+		ArrayList<String> pipes = new ArrayList<>();
+		ArrayList<String> arcs = new ArrayList<>();
+		ArrayList<String> arcsLength = new ArrayList<>();
+		ArrayList<String> elevation = new ArrayList<>();
+		ArrayList<String> pressure = new ArrayList<>();
+		ArrayList<String> demand = new ArrayList<>();
+		ArrayList<String> diameter = new ArrayList<>();
+		ArrayList<String> pipeCost = new ArrayList<>();
+		ArrayList<String> pipeRoughness = new ArrayList<>();
+		String source="";
+
+		File file = new File(amplFilePath);
+		Scanner sc = new Scanner(file);
+
+		int i = 1;
+		while (sc.hasNext()) {
+			if (i == 1) {
+				readnodes(sc, nodes);
+			} else if (i == 2) {
+				readPipes(sc, pipes);
+			} else if (i == 3) {
+				readArcs(sc, arcs, arcsLength);
+			} else if (i == 4) {
+				readElevation(sc, elevation);
+			} else if (i == 5) {
+				readPressure(sc, pressure);
+			} else if (i == 6) {
+				readDemand(sc, demand);
+			} else if (i == 7) {
+				readDiameter(sc, diameter);
+			} else if (i == 8) {
+				readCost(sc, pipeCost);
+			} else if (i == 9) {
+				readRoughness(sc, pipeRoughness);
+			} else {
+				source=readHead(sc);
+				break;
+			}
+			i++;
+		}
+		printSetsAndParametersAndModels(amplFilePath,gamsFilePath,nodes,pipes,arcs,arcsLength,diameter,elevation,pressure,demand,pipeCost,pipeRoughness,source,modelname);
+		sc.close();
+	}
+
+	void printSetsAndParametersAndModels(String amplFilePath, String gamsFilePath, ArrayList<String> nodes, ArrayList<String> pipes, ArrayList<String> arcs, ArrayList<String> arcsLength, ArrayList<String> diameter, ArrayList<String> elevation, ArrayList<String> pressure, ArrayList<String> demand, ArrayList<String> pipeCost, ArrayList<String> pipeRoughness, String source, String modelName) throws IOException {
+
+		BufferedWriter out = null;
+
+		try {
+			FileWriter fstream = new FileWriter(gamsFilePath, true); //true tells to append data.
+			out = new BufferedWriter(fstream);
+
+			printSets(out,nodes,pipes,arcs,source);
+			printParameters(out,arcsLength,diameter,elevation,pressure,demand,pipeCost,pipeRoughness,source);
+			if(modelName.equals("m1")){
+				printModelm1(out);
+			}
+			else printModelm2(out);
+		}
+
+		catch (IOException e) {
+			System.err.println("Error: " + e.getMessage());
+		}
+
+		finally {
+			if(out != null) {
+				out.close();
+			}
+		}
+
+	}
+
+	void printModelm2(BufferedWriter out) throws IOException {
+		out.write("Scalar omega  /10.68/;\n");
+		out.write("Scalar bnd ;\n");
+		out.write("Scalar qm;\n");
+		out.write("Scalar q_M;\n");
+
+		out.write("\n");
+
+		out.write("bnd = sum(src,D(src));\n");
+		out.write("q_M=-bnd;\n");
+		out.write("qm=0;\n");
+
+		out.write("\n");
+
+		out.write("Variable l(nodes,j,pipes); \n");
+		out.write("l.lo(nodes,j,pipes)= 0;\n");
+
+		out.write("\n");
+
+		out.write("Variable q1(nodes,j);\n");
+		out.write("q1.lo(nodes,j)=qm;\n");
+		out.write("q1.up(nodes,j)=q_M;\n");
+
+		out.write("\n");
+
+		out.write("Variable q2(nodes,j);\n");
+		out.write("q2.lo(nodes,j)=qm;\n");
+		out.write("q2.up(nodes,j)=q_M;\n");
+
+		out.write("\n");
+
+		out.write("Variables z;\n");
+
+		out.write("\n");
+
+		out.write("Variable h(nodes);\n");
+
+		out.write("\n");
+
+		out.write("Equations cost \"objective function\",bound1(nodes,j,pipes),cons1(nodes),cons2(nodes),cons3(nodes,j),cons5(src), cons4(nodes,j), cons6(nodes,j) ;\n");
+
+		out.write("cost..  z=e=sum(arcs(nodes,j),sum(pipes,l(arcs,pipes)*c(pipes)));\n");
+
+		out.write("bound1(nodes,j,pipes)$arcs(nodes,j).. l(nodes,j,pipes) =l= Len(nodes,j);\n");
+		out.write("cons1(nodes).. sum(arcs(j,nodes),(q1(arcs)-q2(arcs))) =e= sum(arcs(nodes,j),(q1(arcs)-q2(arcs))) + D(nodes);\n");
+		out.write("cons2(nodes).. h(nodes) =g= E(nodes) + P(nodes);\n");
+		out.write("cons3(arcs(nodes,j)).. h(nodes)-h(j)=e=sum(pipes,(((q1(arcs)*0.001)**1.852 - (q2(arcs)*0.001)**1.852)*omega*l(arcs,pipes))/((R(pipes)**1.852)*(dis(pipes)/1000)**4.87));\n");
+		out.write("cons4(arcs(nodes,j)).. sum(pipes,l(arcs,pipes)) =e=Len(arcs);\n");
+		out.write("cons5(src)..  h(src)=e= sum(srcs,E(srcs));\n");
+		out.write("cons6(arcs(nodes,j)).. q1(arcs)*q2(arcs) =l= q_M*qm;\n");
+
+		out.write("\n");
+
+		out.write("model m2  /all/  ;\n");
+		// System.out.println("Option threads=4;\n");
+		// System.out.println("m2.optfile =1;\n");
+		out.write("solve m2 using minlp minimizing z ;\n");
+	}
+
+	private void printModelm1(BufferedWriter out) throws IOException {
+
+		out.write("Scalar omega  /10.68/;\n");
+		out.write("Scalar bnd ;\n");
+		out.write("Scalar qm;\n");
+		out.write("Scalar q_M;\n");
+
+		out.write("\n");
+
+		out.write("bnd = sum(src,D(src));\n");
+		out.write("q_M=-bnd;\n");
+		out.write("qm=bnd;\n");
+
+		out.write("\n");
+
+		out.write("Variable l(nodes,j,pipes);\n");
+		out.write("l.lo(nodes,j,pipes)= 0;\n");
+
+		out.write("\n");
+
+		out.write("Variable q(nodes,j);\n");
+		out.write("q.lo(nodes,j)=qm;\n");
+		out.write("q.up(nodes,j)=q_M;\n");
+
+		out.write("\n");
+
+		out.write("Variables z;\n");
+
+		out.write("\n");
+
+		out.write("Variable h(nodes);\n");
+
+		out.write("\n");
+
+		out.write("Equations cost \"objective function\",bound1(nodes,j,pipes),cons1(nodes),cons2(nodes),cons3(nodes,j),cons5(src), cons4(nodes,j) ;\n");
+
+		out.write("cost..  z=e=sum(arcs(nodes,j),sum(pipes,l(arcs,pipes)*c(pipes)));\n");
+
+		out.write("bound1(nodes,j,pipes)$arcs(nodes,j).. l(nodes,j,pipes) =l= Len(nodes,j);\n");
+		out.write("cons1(nodes).. sum(arcs(j,nodes),q(arcs)) =e= sum(arcs(nodes,j),q(arcs)) + D(nodes);\n");
+		out.write("cons2(nodes).. h(nodes) =g= E(nodes) + P(nodes);\n");
+		out.write("cons3(arcs(nodes,j)).. h(nodes)-h(j)=e=sum(pipes,((q(arcs)*(abs(q(arcs))**0.852))*(0.001**1.852)*omega*l(arcs,pipes)/((R(pipes)**1.852)*(dis(pipes)/1000)**4.87)));\n");
+		out.write("cons4(arcs(nodes,j)).. sum(pipes,l(arcs,pipes)) =e=Len(arcs);\n");
+		out.write("cons5(src)..  h(src)=e= sum(srcs,E(srcs));\n");
+
+		out.write("\n");
+
+		out.write("model m1  /all/  ;\n");
+//			System.out.println("Option threads=4;");
+// 		out.write("m1.optfile =1;\n");
+		out.write("solve m1 using minlp minimizing z ;\n");
+
+	}
+
+	private void printParameters(BufferedWriter out, ArrayList<String> arcsLength, ArrayList<String> diameter, ArrayList<String> elevation, ArrayList<String> pressure, ArrayList<String> demand, ArrayList<String> pipeCost, ArrayList<String> pipeRoughness, String source) throws IOException {
+
+		out.write("Parameters\n");
+		out.write("\t"+"Len(nodes,j) /");
+		for(int i=0;i<arcsLength.size()-1;i++){
+			out.write(arcsLength.get(i)+", ");
+		}
+		out.write(arcsLength.get(arcsLength.size()-1)+"/"+"\n");
+
+		out.write("\t"+"E(nodes) /");
+		for(int i=0;i<elevation.size()-1;i++){
+			out.write(elevation.get(i)+", ");
+		}
+		out.write(elevation.get(elevation.size()-1)+"/\n");
+
+		out.write("\t"+"P(nodes) /");
+		for(int i=0;i<pressure.size()-1;i++){
+			out.write(pressure.get(i)+", ");
+		}
+		out.write(pressure.get(pressure.size()-1)+"/\n");
+
+		out.write("\t"+"D(nodes) /");
+		for(int i=0;i<demand.size()-1;i++){
+			out.write(demand.get(i)+", ");
+		}
+		out.write(demand.get(demand.size()-1)+"/\n");
+
+		out.write("\t"+"dis(pipes) /");
+		for(int i=0;i<diameter.size()-1;i++){
+			out.write(diameter.get(i)+", ");
+		}
+		out.write(diameter.get(diameter.size()-1)+"/\n");
+
+		out.write("\t"+"C(pipes) /");
+		for(int i=0;i<pipeCost.size()-1;i++){
+			out.write(pipeCost.get(i)+", ");
+		}
+		out.write(pipeCost.get(pipeCost.size()-1)+"/\n");
+
+		out.write("\t"+"R(pipes) /");
+		for(int i=0;i<pipeRoughness.size()-1;i++){
+			out.write(pipeRoughness.get(i)+", ");
+		}
+		out.write(pipeRoughness.get(pipeRoughness.size()-1)+"/\n");
+
+//			out.write("Source(src)  /");
+
+		out.write("\n");
+
+	}
+
+	private void printSets(BufferedWriter out, ArrayList<String> nodes, ArrayList<String> pipes, ArrayList<String> arcs, String source) throws IOException {
+
+		out.write("Sets\n");   //new line
+		out.write("\t"+"nodes /");
+		for(String str:nodes)
+			out.write(str+"");
+		out.write("/\n");
+
+		out.write("\t"+"pipes /");
+		for(String str:pipes)
+			out.write(str+"");
+		out.write("/\n");
+
+		out.write("\t"+"src(nodes) /"+source+"/;");
+		out.write("\n");
+		out.write("alias (src,srcs);\n");
+		out.write("alias (nodes,j) ;\n");
+
+		out.write("Set "+"arcs(nodes,j) /");
+		for(int i=0;i<arcs.size()-1;i++){
+			out.write(arcs.get(i)+", ");
+		}
+		out.write(arcs.get(arcs.size()-1)+"/\n");
+
+		out.write("\n");
+
+	}
+
+
+	// printSetsAndParametersAndModels();
+		public void readnodes(Scanner sc,ArrayList<String> nodes){
+			String inp=sc.nextLine();
+			String str[]=inp.split("\\s+");
+			String node="";
+			for(int i=3;i<str.length-1;i++)
+				node=node+str[i]+", ";
+			node=node+str[str.length-1].substring(0,str[str.length-1].length()-1);
+			nodes.add(node);
+			sc.nextLine();
+//		    System.out.println(nodes);
+		}
+		public void readPipes(Scanner sc,ArrayList<String> pipes){
+			String inp=sc.nextLine();
+			String str[]=inp.split("\\s+");
+			String pipe="";
+			for(int i=3;i<str.length-1;i++)
+				pipe=pipe+str[i]+", ";
+			pipe=pipe+str[str.length-1].substring(0,str[str.length-1].length()-1);
+			pipes.add(pipe);
+			sc.nextLine();
+//		    System.out.println(pipes);
+		}
+		public void readArcs(Scanner sc,ArrayList<String> arcs,ArrayList<String> arcsLength){
+			String s=sc.nextLine();
+			while(sc.hasNext()){
+				s=sc.nextLine();
+				if(s.indexOf(";") != -1)
+					break;
+				String str[]=s.split("\\s+");
+				String arc=str[0]+"."+str[1];
+				arcs.add(arc);
+				String len=str[0]+"    ."+str[1]+"    "+str[2];
+				arcsLength.add(len);
+			}
+			String str[]=s.split("\\s+");
+			String arc=str[0]+"."+str[1];
+			arcs.add(arc);
+			String len=str[0]+"    ."+str[1]+"    "+str[2].substring(0,str[2].length()-1);
+			arcsLength.add(len);
+//		    System.out.println(pipes);
+			sc.nextLine();
+		}
+		public void readDiameter(Scanner sc, ArrayList<String> diameter){
+			String inp=sc.nextLine();
+			while(sc.hasNext()){
+				inp=sc.nextLine();
+				if(inp.indexOf(";") != -1)
+					break;
+				String str[]=inp.split("\\s+");
+				String dia="";
+				for(String s:str) dia=dia+" "+s;
+				diameter.add(dia);
+			}
+			String str[]=inp.split("\\s+");
+			String dia=str[0]+" "+str[1].substring(0,str[1].length()-1);
+			diameter.add(dia);
+			sc.nextLine();
+		}
+		public void readElevation(Scanner sc, ArrayList<String> elevation){
+			String inp=sc.nextLine();
+			while(sc.hasNext()){
+				inp=sc.nextLine();
+				if(inp.indexOf(";") != -1)
+					break;
+				String str[]=inp.split("\\s+");
+				String ele="";
+				for(String s:str) ele=ele+" "+s;
+				elevation.add(ele);
+			}
+			String str[]=inp.split("\\s+");
+			String ele=str[0]+" "+str[1].substring(0,str[1].length()-1);
+			elevation.add(ele);
+			sc.nextLine();
+		}
+		public void readPressure(Scanner sc, ArrayList<String> pressure){
+			String inp=sc.nextLine();
+			while(sc.hasNext()){
+				inp=sc.nextLine();
+				if(inp.indexOf(";") != -1)
+					break;
+				String str[]=inp.split("\\s+");
+				String pres="";
+				for(String s:str) pres=pres+" "+s;
+				pressure.add(pres);
+			}
+			String str[]=inp.split("\\s+");
+			String pres=str[0]+" "+str[1].substring(0,str[1].length()-1);
+			pressure.add(pres);
+			sc.nextLine();
+		}
+		public void readDemand(Scanner sc, ArrayList<String> demand){
+			String inp=sc.nextLine();
+			while(sc.hasNext()){
+				inp=sc.nextLine();
+				if(inp.indexOf(";") != -1)
+					break;
+				String str[]=inp.split("\\s+");
+				String dem="";
+				for(String s:str) dem=dem+" "+s;
+				demand.add(dem);
+			}
+			String str[]=inp.split("\\s+");
+			String dem=str[0]+" "+str[1].substring(0,str[1].length()-1);
+			demand.add(dem);
+			sc.nextLine();
+		}
+		public void readCost(Scanner sc, ArrayList<String> pipeCost){
+			String inp=sc.nextLine();
+			while(sc.hasNext()){
+				inp=sc.nextLine();
+				if(inp.indexOf(";") != -1)
+					break;
+				String str[]=inp.split("\\s+");
+				String cost="";
+				for(String s:str) cost=cost+" "+s;
+				pipeCost.add(cost);
+			}
+			String str[]=inp.split("\\s+");
+			String cost=str[0] + " " + str[1].substring(0,str[1].length()-1);
+			pipeCost.add(cost);
+			sc.nextLine();
+		}
+		public void readRoughness(Scanner sc, ArrayList<String> pipeRoughness){
+			String inp=sc.nextLine();
+			while(sc.hasNext()){
+				inp=sc.nextLine();
+				if(inp.indexOf(";") != -1)
+					break;
+				String str[]=inp.split("\\s+");
+				String roughness="";
+				for(String s:str) roughness=roughness+" "+s;
+				pipeRoughness.add(roughness);
+			}
+			String str[]=inp.split("\\s+");
+			String roughness=str[0]+" "+str[1].substring(0,str[1].length()-1);
+			pipeRoughness.add(roughness);
+			sc.nextLine();
+		}
+		public String readHead(Scanner sc){
+			String inp=sc.nextLine();
+			String source=inp.split("\\s+")[3];
+			source=source.substring(0,source.length()-1);
+			return source;
+		}
+
 
 	/**
 	 * Launch "CalculateNetworkCost_JaltantraLauncher.sh" and wait for 2 seconds. If the process
