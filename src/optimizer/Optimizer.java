@@ -12,6 +12,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 // This class is responsible for optimization of the network
@@ -427,47 +429,58 @@ public class Optimizer {
 						}
 						else optimalCost=cost_for_baron_m1;
 					}
-					if(time_passed.length() > 0){
+
+					String log_file=SOLVER_ROOT_DIR +"/" + SOLVER_2_HASH_FILE_DIR + "/" + previousHash + ".R" + runTime + ".log";
+					File log_file_path = new File(log_file);
+					String time_to_display[] = getIntermediateTime(log_file_path);
+
+					if(time_to_display[0].length() > 0) {
+
+						String timeFinished = time_to_display[0];
+						String timeLeft = time_to_display[1];
+						logi("Solver is running for this network. Please wait..., current cost : "+optimalCost);
+						throw new Exception("Solver is running for this network. Please wait...,  "+timeFinished+" passed, remaining Time : "+timeLeft);
 
 						// convert sec into hours minutes and seconds format
-						String resultTime=getTimeToDisplay(time_passed);
-
-						if(runTime.equals("5min")){
-
-							String remainingTime="";
-							String pathToattemptsFile=SOLVER_ROOT_DIR+"/"+SOLVER_2_HASH_FILE_DIR+"/"+networkFileName+"_attemptsFile.txt";
-
-							if(!new File(pathToattemptsFile).exists()){
-								int remaining=300-((int)(Float.parseFloat(time_passed)));
-								remainingTime=getTimeToDisplay(""+remaining);
-							}
-							else{
-								int temp=0;
-								try (BufferedReader reader = new BufferedReader(new FileReader(pathToattemptsFile))) {
-									String line = reader.readLine();
-									temp=Integer.parseInt(line);
-								} catch (IOException e) {
-									System.out.println("Error reading from attempts file during displaying of time: " + e.getMessage());
-								}
-								String currentTime=list_of_times[temp-1];
-								String currentMinutes=getMinutesToDisplay(currentTime);
-
-								int currentMin=Integer.parseInt(currentMinutes);
-								int currentsec=currentMin*60;  // we will get seconds
-
-								int remining=currentsec-((int)(Float.parseFloat(time_passed)));
-								remainingTime=getTimeToDisplay(""+remining);
-							}
-							logi("Solver is running for this network. Please wait..., current cost : "+optimalCost);
-							throw new Exception("Solver is running for this network. Please wait...,  "+resultTime+" passed, remaining Time : "+remainingTime);
-						}
-						logi("Solver is running for this network. Please wait..., current cost : "+optimalCost);
-						throw new Exception("Solver is running for this network. Please wait...,  "+resultTime+" passed");
+						// String resultTime=getTimeToDisplay(time_passed);
+						//
+						// if(runTime.equals("5min")){
+						//
+						// 	String remainingTime="";
+						// 	String pathToattemptsFile=SOLVER_ROOT_DIR+"/"+SOLVER_2_HASH_FILE_DIR+"/"+networkFileName+"_attemptsFile.txt";
+						//
+						// 	if(!new File(pathToattemptsFile).exists()){
+						// 		int remaining=300-((int)(Float.parseFloat(time_passed)));
+						// 		remainingTime=getTimeToDisplay(""+remaining);
+						// 	}
+						// 	else{
+						// 		int temp=0;
+						// 		try (BufferedReader reader = new BufferedReader(new FileReader(pathToattemptsFile))) {
+						// 			String line = reader.readLine();
+						// 			temp=Integer.parseInt(line);
+						// 		} catch (IOException e) {
+						// 			System.out.println("Error reading from attempts file during displaying of time: " + e.getMessage());
+						// 		}
+						// 		String currentTime=list_of_times[temp-1];
+						// 		String currentMinutes=getMinutesToDisplay(currentTime);
+						//
+						// 		int currentMin=Integer.parseInt(currentMinutes);
+						// 		int currentsec=currentMin*60;  // we will get seconds
+						//
+						// 		int remining=currentsec-((int)(Float.parseFloat(time_passed)));
+						// 		remainingTime=getTimeToDisplay(""+remining);
+						// 	}
+						// 	logi("Solver is running for this network. Please wait..., current cost : "+optimalCost);
+						// 	throw new Exception("Solver is running for this network. Please wait...,  "+resultTime+" passed, remaining Time : "+remainingTime);
+						// }
+						// logi("Solver is running for this network. Please wait..., current cost : "+optimalCost);
+						// throw new Exception("Solver is running for this network. Please wait...,  "+resultTime+" passed");
 					}
 					else{
 						logi("Solver is running for this network. Please wait...");
 						throw new Exception("Solver is running for this network. Please wait...");
 					}
+
 					// logi("Solver is running for this network. Please wait...");
 					// throw new Exception("Solver is running for this network. Please wait...");
 				} else if (status == 2) {
@@ -607,6 +620,41 @@ public class Optimizer {
 		else exists=true;
 
 		return exists;
+	}
+
+	public static String[] getIntermediateTime(File file){
+		String timeFinished="";
+		String timeLeft="";
+		try {
+			Scanner scanner = new Scanner(file);
+			String lastLine="";
+			// read the contents of the file line by line
+			while (scanner.hasNextLine()) {
+				String line = scanner.nextLine();
+				Pattern pattern = Pattern.compile("Time Finished =");
+				Matcher matcher = pattern.matcher(line);
+				if(matcher.find()){
+					lastLine = line;
+				}
+			}
+			lastLine=lastLine.trim();
+			System.out.println("last line : "+lastLine);
+
+			Pattern pattern = Pattern.compile("Time Finished = (\\d{1,2}:\\d{2}:\\d{2}), Time Left = (\\d{1,2}:\\d{2}:\\d{2})");
+			Matcher matcher = pattern.matcher(lastLine);
+			if (matcher.find()) {
+				timeFinished = matcher.group(1);
+				timeLeft = matcher.group(2);
+				System.out.println("Time Finished: " + timeFinished);
+				System.out.println("Time Left: " + timeLeft);
+			}
+			System.out.println("Time finished : " + timeFinished + "Time left : " + timeLeft);
+			scanner.close();
+
+		} catch (FileNotFoundException e) {
+			System.out.println("Either File not found or not able to extract time: " + e.getMessage());
+		}
+		return new String[]{timeFinished , timeLeft};
 	}
 
 	public static String[] getIntermediateResults(File file){
