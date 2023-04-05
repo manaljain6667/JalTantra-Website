@@ -3245,6 +3245,16 @@ public class OptimizerServlet extends HttpServlet
 				request.setAttribute("organization", organization);
 			}
 
+			// String min_flow = generalProperties.min_flow;
+			// if(min_flow != null){
+			// 	request.setAttribute("min_flow", min_flow);
+			// }
+			//
+			// String max_flow = generalProperties.max_flow;
+			// if(max_flow != null){
+			// 	request.setAttribute("max_flow", max_flow);
+			// }
+
 			//System.out.println(request.getParameter("nodes"));
 			NodeStruct[] nodes = gson.fromJson(request.getParameter("nodes"), NodeStruct[].class);
 			if(nodes==null || nodes.length==0)

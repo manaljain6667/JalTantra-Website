@@ -3,7 +3,9 @@ package optimizer;
 import com.google.ortools.linearsolver.MPSolver.ResultStatus;
 import optimizer.Pipe.FlowType;
 import structs.*;
-
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -233,6 +235,10 @@ public class Optimizer {
 		return generalProperties.name_organization;
 	}
 
+	public String getGeneralPropertiesMin_flow() { return generalProperties.min_flow; }
+
+	public String getGeneralPropertiesMax_flow(){ return generalProperties.max_flow; }
+
 	/**
 	 * Check whether the network structure is valid or not
 	 *
@@ -285,6 +291,7 @@ public class Optimizer {
 	public static int attempts=0;
 
 	// This should point to the root of the repository: Jaltantra-Code-and-Scripts
+	// static final String SOLVER_ROOT_DIR = "/home/deploy";
 	static final String SOLVER_ROOT_DIR = "/home/manal/Downloads/MTP/JalTantra-Code-and-Scripts";
 	// This directory is for temporary use by the method `createNetworkFile()`
 	static final String SOLVER_1_NEW_FILE_DIR = "./DataNetworkGraphInput";
@@ -302,6 +309,9 @@ public class Optimizer {
 	static String list_of_times[]={"00:10:00","00:20:00"};
 
 	static String run_Time="";
+
+	String min_flow = getGeneralPropertiesMin_flow();
+	String max_flow = getGeneralPropertiesMax_flow();
 	/**
 	 * Optimize the network. And, if done successfully, the results are stored in three ArrayLists,
 	 * namely resultPipes, resultCost and resultPumps.
@@ -350,7 +360,7 @@ public class Optimizer {
 
 			if(!promptFileExist){
 				logi("Please save the network file, if not, before continuing the optimization");
-				throw new Exception("Please save the network file, if not, before continuing the optimization");
+				throw new Exception("Please save the network file, if not, before continuing the optimization and click on optimize button again");
 			}
 
 			String previousHash=networkFileHash;
@@ -374,7 +384,7 @@ public class Optimizer {
 
 			logd("networkFileHash = " + networkFileHash + ", statusFileExists = " + statusFileExists);
 
-			if (networkFileStatus.equals("0") || statusFileExists == false || resultFileContent == false) {
+			if (networkFileStatus.equals("0") || statusFileExists == false ) {
 				logi("Starting the solvers (CalculateNetworkCost.py) for network file '" + networkFileResult + "'");
 				launchCalculateNetworkCost(SOLVER_ROOT_DIR + "/" + SOLVER_2_HASH_FILE_DIR + "/" + networkFileName);
 				throw new Exception("The solver is working, refresh the page after " + SOLVER_EXECUTION_TIME_DISPLAY_STR + " to see the results");
@@ -844,6 +854,8 @@ public class Optimizer {
 			// StringBuilder object
 			sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
 		}
+
+
 
 		// Finally, we return the complete hash
 		return sb.toString().toLowerCase();

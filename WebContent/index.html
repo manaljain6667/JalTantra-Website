@@ -284,8 +284,8 @@ var config = {
 		            //button to send information to server and optimize the network    
 	                { id: 'optimization', text: 'Optimize Network', expanded: false, group: true
 	                	, nodes : [
-	                	{ id: 'optimize', text: 'run for 5 minutes', icon: 'fa fa-wrench'},
-                            { id: 'optimize_again', text: 'Run for 1 hour', icon: 'fa fa-wrench' },  //button to run the optimization again for 1 hour
+	                	{ id: 'optimize', text: 'Optimize(5 minutes)', icon: 'fa fa-wrench'},
+                            { id: 'optimize_again', text: 'Optimize(1 hour)', icon: 'fa fa-wrench' },  //button to run the optimization again for 1 hour
 	                	{ id: 'results', text: 'Results', icon: 'fa fa-bar-chart' }]},
 
 
@@ -708,6 +708,7 @@ var config = {
 	generalform : { 
         name   : 'generalform',
         focus : -1,
+        //url : '/jaltantra_loop_dev_v2/optimizer',
         url : '/jaltantra_loop/optimizer',
         msgSaving  : 'Optimizing, Please Wait...',
         fields : [
