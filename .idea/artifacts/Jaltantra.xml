@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="war" name="Jaltantra">
+  <artifact type="exploded-war" name="Jaltantra">
     <output-path>$PROJECT_DIR$/classes/artifacts/Jaltantra</output-path>
-    <root id="archive" name="Jaltantra.war">
+    <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="Jaltantra" />

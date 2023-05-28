@@ -235,9 +235,6 @@ public class Optimizer {
 		return generalProperties.name_organization;
 	}
 
-	public String getGeneralPropertiesMin_flow() { return generalProperties.min_flow; }
-
-	public String getGeneralPropertiesMax_flow(){ return generalProperties.max_flow; }
 
 	/**
 	 * Check whether the network structure is valid or not
@@ -310,8 +307,7 @@ public class Optimizer {
 
 	static String run_Time="";
 
-	String min_flow = getGeneralPropertiesMin_flow();
-	String max_flow = getGeneralPropertiesMax_flow();
+
 	/**
 	 * Optimize the network. And, if done successfully, the results are stored in three ArrayLists,
 	 * namely resultPipes, resultCost and resultPumps.
@@ -587,7 +583,8 @@ public class Optimizer {
 				loge("FIXME: `createNetworkFile()` method returned unexpected value ' " + networkFileResult + " '");
 				throw new Exception("Internal server error: createNetworkFile() method failed, probably due to unexpected change in some method(s)");
 			}
-		} else if (networkValidationResult == 3) {
+		}
+		else if (networkValidationResult == 3) {
 			throw new Exception("Input is not valid. Nodes unconnected in the network");
 		} else if (networkValidationResult == 4) {
 			throw new Exception("Source Head (" + this.source.getHead() + ") should be greater than or equal to Source Elevation (" + this.source.getElevation() + "). Please fix it in the 'General' section");
@@ -1307,150 +1304,150 @@ public class Optimizer {
 
 
 	// printSetsAndParametersAndModels();
-		public void readnodes(Scanner sc,ArrayList<String> nodes){
-			String inp=sc.nextLine();
-			String str[]=inp.split("\\s+");
-			String node="";
-			for(int i=3;i<str.length-1;i++)
-				node=node+str[i]+", ";
-			node=node+str[str.length-1].substring(0,str[str.length-1].length()-1);
-			nodes.add(node);
-			sc.nextLine();
+	public void readnodes(Scanner sc,ArrayList<String> nodes){
+		String inp=sc.nextLine();
+		String str[]=inp.split("\\s+");
+		String node="";
+		for(int i=3;i<str.length-1;i++)
+			node=node+str[i]+", ";
+		node=node+str[str.length-1].substring(0,str[str.length-1].length()-1);
+		nodes.add(node);
+		sc.nextLine();
 //		    System.out.println(nodes);
-		}
-		public void readPipes(Scanner sc,ArrayList<String> pipes){
-			String inp=sc.nextLine();
-			String str[]=inp.split("\\s+");
-			String pipe="";
-			for(int i=3;i<str.length-1;i++)
-				pipe=pipe+str[i]+", ";
-			pipe=pipe+str[str.length-1].substring(0,str[str.length-1].length()-1);
-			pipes.add(pipe);
-			sc.nextLine();
+	}
+	public void readPipes(Scanner sc,ArrayList<String> pipes){
+		String inp=sc.nextLine();
+		String str[]=inp.split("\\s+");
+		String pipe="";
+		for(int i=3;i<str.length-1;i++)
+			pipe=pipe+str[i]+", ";
+		pipe=pipe+str[str.length-1].substring(0,str[str.length-1].length()-1);
+		pipes.add(pipe);
+		sc.nextLine();
 //		    System.out.println(pipes);
-		}
-		public void readArcs(Scanner sc,ArrayList<String> arcs,ArrayList<String> arcsLength){
-			String s=sc.nextLine();
-			while(sc.hasNext()){
-				s=sc.nextLine();
-				if(s.indexOf(";") != -1)
-					break;
-				String str[]=s.split("\\s+");
-				String arc=str[0]+"."+str[1];
-				arcs.add(arc);
-				String len=str[0]+"    ."+str[1]+"    "+str[2];
-				arcsLength.add(len);
-			}
+	}
+	public void readArcs(Scanner sc,ArrayList<String> arcs,ArrayList<String> arcsLength){
+		String s=sc.nextLine();
+		while(sc.hasNext()){
+			s=sc.nextLine();
+			if(s.indexOf(";") != -1)
+				break;
 			String str[]=s.split("\\s+");
 			String arc=str[0]+"."+str[1];
 			arcs.add(arc);
-			String len=str[0]+"    ."+str[1]+"    "+str[2].substring(0,str[2].length()-1);
+			String len=str[0]+"    ."+str[1]+"    "+str[2];
 			arcsLength.add(len);
+		}
+		String str[]=s.split("\\s+");
+		String arc=str[0]+"."+str[1];
+		arcs.add(arc);
+		String len=str[0]+"    ."+str[1]+"    "+str[2].substring(0,str[2].length()-1);
+		arcsLength.add(len);
 //		    System.out.println(pipes);
-			sc.nextLine();
-		}
-		public void readDiameter(Scanner sc, ArrayList<String> diameter){
-			String inp=sc.nextLine();
-			while(sc.hasNext()){
-				inp=sc.nextLine();
-				if(inp.indexOf(";") != -1)
-					break;
-				String str[]=inp.split("\\s+");
-				String dia="";
-				for(String s:str) dia=dia+" "+s;
-				diameter.add(dia);
-			}
+		sc.nextLine();
+	}
+	public void readDiameter(Scanner sc, ArrayList<String> diameter){
+		String inp=sc.nextLine();
+		while(sc.hasNext()){
+			inp=sc.nextLine();
+			if(inp.indexOf(";") != -1)
+				break;
 			String str[]=inp.split("\\s+");
-			String dia=str[0]+" "+str[1].substring(0,str[1].length()-1);
+			String dia="";
+			for(String s:str) dia=dia+" "+s;
 			diameter.add(dia);
-			sc.nextLine();
 		}
-		public void readElevation(Scanner sc, ArrayList<String> elevation){
-			String inp=sc.nextLine();
-			while(sc.hasNext()){
-				inp=sc.nextLine();
-				if(inp.indexOf(";") != -1)
-					break;
-				String str[]=inp.split("\\s+");
-				String ele="";
-				for(String s:str) ele=ele+" "+s;
-				elevation.add(ele);
-			}
+		String str[]=inp.split("\\s+");
+		String dia=str[0]+" "+str[1].substring(0,str[1].length()-1);
+		diameter.add(dia);
+		sc.nextLine();
+	}
+	public void readElevation(Scanner sc, ArrayList<String> elevation){
+		String inp=sc.nextLine();
+		while(sc.hasNext()){
+			inp=sc.nextLine();
+			if(inp.indexOf(";") != -1)
+				break;
 			String str[]=inp.split("\\s+");
-			String ele=str[0]+" "+str[1].substring(0,str[1].length()-1);
+			String ele="";
+			for(String s:str) ele=ele+" "+s;
 			elevation.add(ele);
-			sc.nextLine();
 		}
-		public void readPressure(Scanner sc, ArrayList<String> pressure){
-			String inp=sc.nextLine();
-			while(sc.hasNext()){
-				inp=sc.nextLine();
-				if(inp.indexOf(";") != -1)
-					break;
-				String str[]=inp.split("\\s+");
-				String pres="";
-				for(String s:str) pres=pres+" "+s;
-				pressure.add(pres);
-			}
+		String str[]=inp.split("\\s+");
+		String ele=str[0]+" "+str[1].substring(0,str[1].length()-1);
+		elevation.add(ele);
+		sc.nextLine();
+	}
+	public void readPressure(Scanner sc, ArrayList<String> pressure){
+		String inp=sc.nextLine();
+		while(sc.hasNext()){
+			inp=sc.nextLine();
+			if(inp.indexOf(";") != -1)
+				break;
 			String str[]=inp.split("\\s+");
-			String pres=str[0]+" "+str[1].substring(0,str[1].length()-1);
+			String pres="";
+			for(String s:str) pres=pres+" "+s;
 			pressure.add(pres);
-			sc.nextLine();
 		}
-		public void readDemand(Scanner sc, ArrayList<String> demand){
-			String inp=sc.nextLine();
-			while(sc.hasNext()){
-				inp=sc.nextLine();
-				if(inp.indexOf(";") != -1)
-					break;
-				String str[]=inp.split("\\s+");
-				String dem="";
-				for(String s:str) dem=dem+" "+s;
-				demand.add(dem);
-			}
+		String str[]=inp.split("\\s+");
+		String pres=str[0]+" "+str[1].substring(0,str[1].length()-1);
+		pressure.add(pres);
+		sc.nextLine();
+	}
+	public void readDemand(Scanner sc, ArrayList<String> demand){
+		String inp=sc.nextLine();
+		while(sc.hasNext()){
+			inp=sc.nextLine();
+			if(inp.indexOf(";") != -1)
+				break;
 			String str[]=inp.split("\\s+");
-			String dem=str[0]+" "+str[1].substring(0,str[1].length()-1);
+			String dem="";
+			for(String s:str) dem=dem+" "+s;
 			demand.add(dem);
-			sc.nextLine();
 		}
-		public void readCost(Scanner sc, ArrayList<String> pipeCost){
-			String inp=sc.nextLine();
-			while(sc.hasNext()){
-				inp=sc.nextLine();
-				if(inp.indexOf(";") != -1)
-					break;
-				String str[]=inp.split("\\s+");
-				String cost="";
-				for(String s:str) cost=cost+" "+s;
-				pipeCost.add(cost);
-			}
+		String str[]=inp.split("\\s+");
+		String dem=str[0]+" "+str[1].substring(0,str[1].length()-1);
+		demand.add(dem);
+		sc.nextLine();
+	}
+	public void readCost(Scanner sc, ArrayList<String> pipeCost){
+		String inp=sc.nextLine();
+		while(sc.hasNext()){
+			inp=sc.nextLine();
+			if(inp.indexOf(";") != -1)
+				break;
 			String str[]=inp.split("\\s+");
-			String cost=str[0] + " " + str[1].substring(0,str[1].length()-1);
+			String cost="";
+			for(String s:str) cost=cost+" "+s;
 			pipeCost.add(cost);
-			sc.nextLine();
 		}
-		public void readRoughness(Scanner sc, ArrayList<String> pipeRoughness){
-			String inp=sc.nextLine();
-			while(sc.hasNext()){
-				inp=sc.nextLine();
-				if(inp.indexOf(";") != -1)
-					break;
-				String str[]=inp.split("\\s+");
-				String roughness="";
-				for(String s:str) roughness=roughness+" "+s;
-				pipeRoughness.add(roughness);
-			}
+		String str[]=inp.split("\\s+");
+		String cost=str[0] + " " + str[1].substring(0,str[1].length()-1);
+		pipeCost.add(cost);
+		sc.nextLine();
+	}
+	public void readRoughness(Scanner sc, ArrayList<String> pipeRoughness){
+		String inp=sc.nextLine();
+		while(sc.hasNext()){
+			inp=sc.nextLine();
+			if(inp.indexOf(";") != -1)
+				break;
 			String str[]=inp.split("\\s+");
-			String roughness=str[0]+" "+str[1].substring(0,str[1].length()-1);
+			String roughness="";
+			for(String s:str) roughness=roughness+" "+s;
 			pipeRoughness.add(roughness);
-			sc.nextLine();
 		}
-		public String readHead(Scanner sc){
-			String inp=sc.nextLine();
-			String source=inp.split("\\s+")[3];
-			source=source.substring(0,source.length()-1);
-			return source;
-		}
+		String str[]=inp.split("\\s+");
+		String roughness=str[0]+" "+str[1].substring(0,str[1].length()-1);
+		pipeRoughness.add(roughness);
+		sc.nextLine();
+	}
+	public String readHead(Scanner sc){
+		String inp=sc.nextLine();
+		String source=inp.split("\\s+")[3];
+		source=source.substring(0,source.length()-1);
+		return source;
+	}
 
 
 	/**
