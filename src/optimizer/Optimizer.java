@@ -18,20 +18,46 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-// This class is responsible for optimization of the network
+
+
+/**
+ * This class is responsible for optimization of the network <br> <br>
+ */
 public class Optimizer {
+
+	/**
+	 * Outputs a debug log message.
+	 *
+	 * @param str the debug log message
+	 */
 	public static void logd(String str) {
 		System.err.println("FM: DEBUG: " + str);
 	}
 
+	/**
+	 * Outputs an info log message.
+	 *
+	 * @param str the info log message
+	 */
 	public static void logi(String str) {
 		System.err.println("FM: INFO: " + str);
 	}
 
+	/**
+	 * Outputs a warning log message.
+	 *
+	 * @param str the warning log message
+	 */
 	public static void logw(String str) {
 		System.err.println("FM: WARNING: " + str);
 	}
 
+
+	/**
+	 * Outputs an error log message.
+	 *
+	 * @param str the error log message
+	 */
 	public static void loge(String str) {
 		System.err.println("FM: ERROR: " + str);
 	}
@@ -95,6 +121,20 @@ public class Optimizer {
 	private ValveStruct[] valves;
 
 	//create an instance of optimizer
+	/**
+	 * Constructs an instance of the {@link Optimizer} class.
+	 *
+	 * @param nodeStructs            an array of {@link NodeStruct} objects representing the node properties
+	 * @param pipeStructs            an array of {@link PipeStruct} objects representing the pipe properties
+	 * @param commercialPipeStructs  an array of {@link CommercialPipeStruct} objects representing the commercial pipe properties
+	 * @param generalStruct          a {@link GeneralStruct} object representing the general network properties
+	 * @param esrGeneralProperties   an {@link EsrGeneralStruct} object representing the ESR general properties (can be null if ESR optimization is disabled)
+	 * @param esrCostsArray          an array of {@link EsrCostStruct} objects representing the ESR cost properties (can be null if ESR optimization is disabled)
+	 * @param pumpGeneralProperties  a {@link PumpGeneralStruct} object representing the pump general properties (can be null if pump optimization is disabled)
+	 * @param pumpManualArray        an array of {@link PumpManualStruct} objects representing the manual pump properties (can be null if pump optimization is disabled)
+	 * @param valves                 an array of {@link ValveStruct} objects representing the valve properties
+	 * @throws Exception if there is an error in the construction of the optimizer
+	 */
 	public Optimizer(NodeStruct[] nodeStructs, PipeStruct[] pipeStructs, CommercialPipeStruct[] commercialPipeStructs, GeneralStruct generalStruct, EsrGeneralStruct esrGeneralProperties, EsrCostStruct[] esrCostsArray, PumpGeneralStruct pumpGeneralProperties, PumpManualStruct[] pumpManualArray, ValveStruct[] valves) throws Exception {
 		nodes = new HashMap<Integer, Node>();
 		pipes = new HashMap<Integer, Pipe>();
@@ -215,22 +255,47 @@ public class Optimizer {
 		totalDemand = getTotalCapacity();
 	}
 
+	/**
+	 * Returns the general properties of the optimizer.
+	 *
+	 * @return the general properties of the optimizer
+	 */
 	public GeneralStruct getGeneralProperties() {
 		return generalProperties;
 	}
 
+	/**
+	 * Returns the ESR (Elevated Storage Reservoir) general properties of the optimizer.
+	 *
+	 * @return the ESR general properties of the optimizer
+	 */
 	public EsrGeneralStruct getEsrGeneralProperties() {
 		return esrGeneralProperties;
 	}
 
+	/**
+	 * Returns the pump general properties of the optimizer.
+	 *
+	 * @return the pump general properties of the optimizer
+	 */
 	public PumpGeneralStruct getPumpGeneralProperties() {
 		return pumpGeneralProperties;
 	}
 
+	/**
+	 * Returns the project name from the general properties of the optimizer.
+	 *
+	 * @return the project name from the general properties
+	 */
 	public String getGeneralPropertiesProjectName() {
 		return generalProperties.name_project;
 	}
 
+	/**
+	 * Returns the organization name from the general properties of the optimizer.
+	 *
+	 * @return the organization name from the general properties
+	 */
 	public String getGeneralPropertiesOrganizationName() {
 		return generalProperties.name_organization;
 	}
@@ -275,6 +340,12 @@ public class Optimizer {
 	}
 
 	//return the total ESR capacity required in the network in litres
+
+	/**
+	 * Calculates and returns the total capacity required for the network.
+	 *
+	 * @return the total capacity required for the network
+	 */
 	private double getTotalCapacity() {
 		double sum = 0;
 		for (Node n : nodes.values()) {
@@ -287,8 +358,11 @@ public class Optimizer {
 
 	public static int attempts=0;
 
-	// This should point to the root of the repository: Jaltantra-Code-and-Scripts
 	// static final String SOLVER_ROOT_DIR = "/home/deploy";
+
+	/**
+	 * This should point to the root of the repository: Jaltantra-Code-and-Scripts
+	 */
 	static final String SOLVER_ROOT_DIR = "/home/manal/Downloads/MTP/JalTantra-Code-and-Scripts";
 	// This directory is for temporary use by the method `createNetworkFile()`
 	static final String SOLVER_1_NEW_FILE_DIR = "./DataNetworkGraphInput";
@@ -311,7 +385,8 @@ public class Optimizer {
 	/**
 	 * Optimize the network. And, if done successfully, the results are stored in three ArrayLists,
 	 * namely resultPipes, resultCost and resultPumps.
-	 *
+	 * @param runTime
+	 * 			a string variable denoting the run time of the network
 	 * @return whether network was solved successfully results are ready (`true`) or not (`false`)
 	 * @throws Exception in case of any error/problem or to convey any status information
 	 */
@@ -596,6 +671,12 @@ public class Optimizer {
 		// return true;
 	}
 
+	/**
+	 * This function takes a string value which denotes seconds and converts it to HH:MM:SS string format
+	 * @param timeInSec
+	 * 			a string variable denoting the time in seconds
+	 * @return converted value of time from seconds to HH:MM:SS format
+	 */
 	public static String getTimeToDisplay(String timeInSec){
 		String resultTime="";
 		int sec=(int)(Float.parseFloat(timeInSec));
@@ -612,6 +693,16 @@ public class Optimizer {
 
 		return resultTime;
 	}
+
+	/**
+	 * This function checks whether a particular file exist or not. If not exist then it creates that file<br>
+	 * in that particular filePath
+	 * @param filePath
+	 * 		a string variable which denotes the path to the file
+	 * @return boolean <br>
+	 * 	true => if the file exists
+	 * 	false => if that file does not exist and created that file
+	 */
 	public static boolean checkFileExist(String filePath){
 
 		boolean exists=false;
@@ -629,6 +720,12 @@ public class Optimizer {
 		return exists;
 	}
 
+	/**
+	 * Retrieves the intermediate time information from the given file.
+	 *
+	 * @param file The file to read and extract the intermediate time information from.
+	 * @return An array of two strings containing the time finished and time left respectively.
+	 */
 	public static String[] getIntermediateTime(File file){
 		String timeFinished="";
 		String timeLeft="";
@@ -664,6 +761,12 @@ public class Optimizer {
 		return new String[]{timeFinished , timeLeft};
 	}
 
+	/**
+	 * Retrieves the intermediate results from the given file.
+	 *
+	 * @param file The file to read and extract the intermediate results from.
+	 * @return An array of two strings containing the result value and remaining time respectively.
+	 */
 	public static String[] getIntermediateResults(File file){
 		String res="";
 		String Remainingtime="";
@@ -697,6 +800,11 @@ public class Optimizer {
 		return new String[]{res,Remainingtime};
 	}
 
+	/**
+	 * Deletes the results of a network stored at the specified path.
+	 *
+	 * @param pathToHashedNetwork The path to the hashed network directory.
+	 */
 	public void deleteNetworkResults(String pathToHashedNetwork){
 		File directory = new File(pathToHashedNetwork);
 
@@ -736,6 +844,13 @@ public class Optimizer {
 	// 	return updatedTime;
 	// }
 
+	/**
+	 *
+	 * Converts a given date string into minutes and returns it as a string.
+	 *
+	 * @param dateString The date string in the format "HH:mm:ss".
+	 * @return The minutes extracted from the date string as a string.
+	 */
 	public String getMinutesToDisplay(String dateString) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		int minutes=0;
@@ -1036,6 +1151,14 @@ public class Optimizer {
 		return "0-" + hashedFileName;
 	}
 
+	/**
+	 * Creates a GAMS model based on the provided input files and parameters.
+	 *
+	 * @param amplFilePath   The path to the AMPL input file.
+	 * @param gamsFilePath   The path to the GAMS output file to be created.
+	 * @param modelname      The name of the GAMS model.
+	 * @throws IOException   If an I/O error occurs while reading the input file.
+	 */
 	public void createGamsModel(String amplFilePath,String gamsFilePath,String modelname) throws IOException {
 		ArrayList<String> nodes = new ArrayList<>();
 		ArrayList<String> pipes = new ArrayList<>();
@@ -1082,6 +1205,25 @@ public class Optimizer {
 		sc.close();
 	}
 
+	/**
+	 * Prints the sets, parameters, and models to a GAMS output file based on the provided input and source.
+	 *
+	 * @param amplFilePath     The path to the AMPL input file.
+	 * @param gamsFilePath     The path to the GAMS output file.
+	 * @param nodes            The list of nodes.
+	 * @param pipes            The list of pipes.
+	 * @param arcs             The list of arcs.
+	 * @param arcsLength       The list of arc lengths.
+	 * @param diameter         The list of diameters.
+	 * @param elevation        The list of elevations.
+	 * @param pressure         The list of pressures.
+	 * @param demand           The list of demands.
+	 * @param pipeCost         The list of pipe costs.
+	 * @param pipeRoughness    The list of pipe roughness values.
+	 * @param source           The source information.
+	 * @param modelName        The name of the model.
+	 * @throws IOException     If an I/O error occurs while writing to the output file.
+	 */
 	void printSetsAndParametersAndModels(String amplFilePath, String gamsFilePath, ArrayList<String> nodes, ArrayList<String> pipes, ArrayList<String> arcs, ArrayList<String> arcsLength, ArrayList<String> diameter, ArrayList<String> elevation, ArrayList<String> pressure, ArrayList<String> demand, ArrayList<String> pipeCost, ArrayList<String> pipeRoughness, String source, String modelName) throws IOException {
 
 		BufferedWriter out = null;
@@ -1110,6 +1252,12 @@ public class Optimizer {
 
 	}
 
+	/**
+	 * Writes the model M2 equations and solve statement to the specified output writer.
+	 *
+	 * @param out The output writer to write the model M2 equations.
+	 * @throws IOException If an I/O error occurs while writing to the output writer.
+	 */
 	void printModelm2(BufferedWriter out) throws IOException {
 		out.write("Scalar omega  /10.68/;\n");
 		out.write("Scalar bnd ;\n");
@@ -1169,6 +1317,12 @@ public class Optimizer {
 		out.write("solve m2 using minlp minimizing z ;\n");
 	}
 
+	/**
+	 * Writes the model M1 equations and solve statement to the specified output writer.
+	 *
+	 * @param out The output writer to write the model M1 equations.
+	 * @throws IOException If an I/O error occurs while writing to the output writer.
+	 */
 	private void printModelm1(BufferedWriter out) throws IOException {
 
 		out.write("Scalar omega  /10.68/;\n");
@@ -1223,6 +1377,20 @@ public class Optimizer {
 
 	}
 
+	/**
+	 * Writes the parameters to the specified output writer.
+	 *
+	 * @param out             The output writer to write the parameters.
+	 * @param arcsLength      The list of arcs lengths.
+	 * @param diameter        The list of pipe diameters.
+	 * @param elevation       The list of node elevations.
+	 * @param pressure        The list of node pressures.
+	 * @param demand          The list of node demands.
+	 * @param pipeCost        The list of pipe costs.
+	 * @param pipeRoughness   The list of pipe roughness values.
+	 * @param source          The source node.
+	 * @throws IOException   If an I/O error occurs while writing to the output writer.
+	 */
 	private void printParameters(BufferedWriter out, ArrayList<String> arcsLength, ArrayList<String> diameter, ArrayList<String> elevation, ArrayList<String> pressure, ArrayList<String> demand, ArrayList<String> pipeCost, ArrayList<String> pipeRoughness, String source) throws IOException {
 
 		out.write("Parameters\n");
@@ -1274,6 +1442,16 @@ public class Optimizer {
 
 	}
 
+	/**
+	 * Writes the sets to the specified output writer.
+	 *
+	 * @param out        The output writer to write the sets.
+	 * @param nodes      The list of nodes.
+	 * @param pipes      The list of pipes.
+	 * @param arcs       The list of arcs.
+	 * @param source     The source node.
+	 * @throws IOException   If an I/O error occurs while writing to the output writer.
+	 */
 	private void printSets(BufferedWriter out, ArrayList<String> nodes, ArrayList<String> pipes, ArrayList<String> arcs, String source) throws IOException {
 
 		out.write("Sets\n");   //new line
@@ -1304,6 +1482,12 @@ public class Optimizer {
 
 
 	// printSetsAndParametersAndModels();
+	/**
+	 * Reads nodes from the specified scanner and adds them to the given list of nodes.
+	 *
+	 * @param sc     The scanner to read input from.
+	 * @param nodes  The list to store the nodes.
+	 */
 	public void readnodes(Scanner sc,ArrayList<String> nodes){
 		String inp=sc.nextLine();
 		String str[]=inp.split("\\s+");
@@ -1315,6 +1499,13 @@ public class Optimizer {
 		sc.nextLine();
 //		    System.out.println(nodes);
 	}
+
+	/**
+	 * Reads pipes from the specified scanner and adds them to the given list of pipes.
+	 *
+	 * @param sc     The scanner to read input from.
+	 * @param pipes  The list to store the pipes.
+	 */
 	public void readPipes(Scanner sc,ArrayList<String> pipes){
 		String inp=sc.nextLine();
 		String str[]=inp.split("\\s+");
@@ -1326,6 +1517,14 @@ public class Optimizer {
 		sc.nextLine();
 //		    System.out.println(pipes);
 	}
+
+	/**
+	 * Reads the arcs and their lengths from the specified scanner and populates the given lists.
+	 *
+	 * @param sc          The scanner to read input from.
+	 * @param arcs        The list to store the arcs.
+	 * @param arcsLength  The list to store the lengths of arcs.
+	 */
 	public void readArcs(Scanner sc,ArrayList<String> arcs,ArrayList<String> arcsLength){
 		String s=sc.nextLine();
 		while(sc.hasNext()){
@@ -1346,6 +1545,13 @@ public class Optimizer {
 //		    System.out.println(pipes);
 		sc.nextLine();
 	}
+
+	/**
+	 * Reads diameter from the specified scanner and adds them to the given list of diameter.
+	 *
+	 * @param sc     The scanner to read input from.
+	 * @param diameter  The list to store the diameter.
+	 */
 	public void readDiameter(Scanner sc, ArrayList<String> diameter){
 		String inp=sc.nextLine();
 		while(sc.hasNext()){
@@ -1362,6 +1568,13 @@ public class Optimizer {
 		diameter.add(dia);
 		sc.nextLine();
 	}
+
+	/**
+	 * Reads elevation from the specified scanner and adds them to the given list of elevation.
+	 *
+	 * @param sc     The scanner to read input from.
+	 * @param elevation  The list to store the elevation.
+	 */
 	public void readElevation(Scanner sc, ArrayList<String> elevation){
 		String inp=sc.nextLine();
 		while(sc.hasNext()){
@@ -1378,6 +1591,13 @@ public class Optimizer {
 		elevation.add(ele);
 		sc.nextLine();
 	}
+
+	/**
+	 * Reads pressure from the specified scanner and adds them to the given list of pressure.
+	 *
+	 * @param sc     The scanner to read input from.
+	 * @param pressure  The list to store the pressure.
+	 */
 	public void readPressure(Scanner sc, ArrayList<String> pressure){
 		String inp=sc.nextLine();
 		while(sc.hasNext()){
@@ -1394,6 +1614,13 @@ public class Optimizer {
 		pressure.add(pres);
 		sc.nextLine();
 	}
+
+	/**
+	 * Reads demand from the specified scanner and adds them to the given list of demand.
+	 *
+	 * @param sc     The scanner to read input from.
+	 * @param demand  The list to store the demand.
+	 */
 	public void readDemand(Scanner sc, ArrayList<String> demand){
 		String inp=sc.nextLine();
 		while(sc.hasNext()){
@@ -1410,6 +1637,13 @@ public class Optimizer {
 		demand.add(dem);
 		sc.nextLine();
 	}
+
+	/**
+	 * Reads pipeCost from the specified scanner and adds them to the given list of pipeCost.
+	 *
+	 * @param sc     The scanner to read input from.
+	 * @param pipeCost  The list to store the pipeCost.
+	 */
 	public void readCost(Scanner sc, ArrayList<String> pipeCost){
 		String inp=sc.nextLine();
 		while(sc.hasNext()){
@@ -1426,6 +1660,13 @@ public class Optimizer {
 		pipeCost.add(cost);
 		sc.nextLine();
 	}
+
+	/**
+	 * Reads pipeRoughness from the specified scanner and adds them to the given list of pipeRoughness.
+	 *
+	 * @param sc     The scanner to read input from.
+	 * @param pipeRoughness  The list to store the pipeRoughness.
+	 */
 	public void readRoughness(Scanner sc, ArrayList<String> pipeRoughness){
 		String inp=sc.nextLine();
 		while(sc.hasNext()){
@@ -1442,6 +1683,13 @@ public class Optimizer {
 		pipeRoughness.add(roughness);
 		sc.nextLine();
 	}
+
+	/**
+	 * Reads the header from the specified scanner and returns the extracted source.
+	 *
+	 * @param sc The scanner to read input from.
+	 * @return The extracted source.
+	 */
 	public String readHead(Scanner sc){
 		String inp=sc.nextLine();
 		String source=inp.split("\\s+")[3];
